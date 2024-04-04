@@ -1,8 +1,16 @@
 import React, {useState} from 'react';
 import PrimeryWrapper from '../../../core/components/primeryWrapper/PrimeryWrapper.tsx';
-import {Dimensions, Text, TouchableOpacity} from 'react-native';
+import {
+  Alert,
+  Dimensions,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import {CountryPicker} from 'react-native-country-codes-picker';
 import {CountryItemAtom} from './atoms';
+import PrimaryButton from '../../../core/components/primaryButton/PrimaryButton.tsx';
 
 interface CountryModalProps {
   navigation: any;
@@ -21,25 +29,39 @@ const CountryModal: React.FC<CountryModalProps> = ({navigation}) => {
   };
   return (
     <PrimeryWrapper>
+      <Text style={styles.mainText}>Choose a country</Text>
+      <Text style={styles.secondaryText}>
+        For the best offers in your region
+      </Text>
       <TouchableOpacity
         onPress={() => setShow(true)}
         style={{
-          width: '80%',
-          height: 60,
-          backgroundColor: 'black',
+          width: '100%',
+          height: 50,
+          borderRadius: 10,
+          backgroundColor: 'white',
           padding: 10,
+          marginTop: 24,
         }}>
         <Text
           style={{
-            color: 'white',
-            fontSize: 20,
+            color: 'black',
+            fontFamily: 'Poppins-Regular',
+            fontSize: 16,
+            paddingHorizontal: 8,
           }}>
           {country?.name}
           {country?.flag}
         </Text>
       </TouchableOpacity>
       <CountryPicker
-        style={{modal: {height: Dimensions.get('screen').height - 200}}}
+        lang={''}
+        style={{
+          modal: {
+            height: Dimensions.get('screen').height - 200,
+            backgroundColor: '#EEEEFC',
+          },
+        }}
         show={show}
         pickerButtonOnPress={item => {
           setCountryCode(item.dial_code);
@@ -49,12 +71,43 @@ const CountryModal: React.FC<CountryModalProps> = ({navigation}) => {
           <CountryItemAtom
             flag={it.item.flag}
             name={it.name}
-            onPress={() => handlerModal(it.name, it.item.flag)}
+            onPress={() => handlerModal(it.item.flag, it.name)}
           />
         )}
       />
+      <View style={styles.container}>
+        <PrimaryButton
+          label={'Next'}
+          onPress={() => {}}
+          isDesable={false}
+          style={{
+
+          }}
+        />
+      </View>
     </PrimeryWrapper>
   );
 };
 
 export default CountryModal;
+
+const styles = StyleSheet.create({
+  mainText: {
+    fontFamily: 'Poppins-Bold',
+    fontSize: 26,
+    color: 'black',
+    marginTop: 60,
+  },
+  secondaryText: {
+    fontFamily: 'Poppins-Regular',
+    fontSize: 16,
+    color: 'black',
+    marginTop: 10,
+  },
+  container: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+});

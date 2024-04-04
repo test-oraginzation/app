@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 
 interface Props {
   name: string;
@@ -12,16 +12,27 @@ export const CountryItemAtom = ({name, flag, onPress}: Props) => {
       <Text style={styles.txt}>
         {flag} {name}
       </Text>
+      <View
+        style={{
+          height: 1,
+          width: '100%',
+          backgroundColor: '#CEDAE6',
+          marginTop: 13,
+        }}
+      />
     </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    marginVertical: 5,
-    height: 20,
-    alignItems: 'srart',
+    marginHorizontal: 5,
+    height: 50,
     justifyContent: 'center',
   },
-  txt: {fontSize: 16, color: '#000000'},
+  txt: {
+    fontFamily: 'Poppins-Regular',
+    fontSize: 16,
+    color: '#000000',
+  },
 });
