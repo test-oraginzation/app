@@ -28,6 +28,7 @@ const PrimaryInput = ({
         },
         style,
       ]}
+      autoCapitalize="none"
     />
   );
 };

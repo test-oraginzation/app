@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {SafeAreaView, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text, View} from 'react-native';
 import PrimaryButton from '../../../core/components/primaryButton/PrimaryButton.tsx';
 import PrimaryInput from '../../../core/components/primaryInput/PrimaryInput.tsx';
 import PrimeryWrapper from '../../../core/components/primeryWrapper/PrimeryWrapper.tsx';
@@ -7,11 +7,12 @@ interface ChooseNameProps {
   navigation: any;
 }
 
-const ChooseName: React.FC<ChooseNameProps> = () => {
-  const [name, setName] = useState('');
+const ChooseNamePass: React.FC<ChooseNameProps> = ({navigation}) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const isPressed = () => {
-    if (name === '') {
+    if (email === '' || password === '') {
       return true;
     } else {
       return false;
@@ -20,14 +21,26 @@ const ChooseName: React.FC<ChooseNameProps> = () => {
 
   return (
     <PrimeryWrapper>
-      <Text style={styles.mainText}>Choose a nickname</Text>
-      <Text style={styles.secondaryText}>You can always change it later</Text>
+      <Text style={styles.mainText}>Email and password</Text>
+      <Text style={styles.secondaryText}>Don't forget these details</Text>
       <PrimaryInput
-        value={name}
-        onChangeText={setName}
-        placeholder="Name"
+        value={email}
+        onChangeText={setEmail}
+        placeholder="Email"
         style={{
           marginTop: 24,
+          paddingHorizontal: 16,
+          paddingVertical: 13,
+          width: '100%',
+          height: 50,
+        }}
+      />
+      <PrimaryInput
+        value={password}
+        onChangeText={setPassword}
+        placeholder="Password"
+        style={{
+          marginTop: 16,
           paddingHorizontal: 16,
           paddingVertical: 13,
           width: '100%',
@@ -41,7 +54,9 @@ const ChooseName: React.FC<ChooseNameProps> = () => {
             marginBottom: 16,
           }}
           label={'Next'}
-          onPress={() => {}}
+          onPress={() => {
+            navigation.navigate('choosecountry');
+          }}
         />
       </View>
     </PrimeryWrapper>
@@ -82,4 +97,4 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
 });
-export default ChooseName;
+export default ChooseNamePass;
