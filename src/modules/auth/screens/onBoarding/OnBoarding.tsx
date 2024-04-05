@@ -25,7 +25,7 @@ const OnBoarding: React.FC<OnBoardingProps> = ({navigation}) => {
             marginBottom: 16,
           }}
           label={'Get Started'}
-          onPress={() => navigation.navigate('choosename')}
+          onPress={() => navigation.navigate('choosecountry')}
         />
       </View>
     </PrimeryWrapper>

@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import PrimeryWrapper from '../../../core/components/primeryWrapper/PrimeryWrapper.tsx';
 import {
-  Alert,
   Dimensions,
   StyleSheet,
   Text,
@@ -19,9 +18,10 @@ interface CountryModalProps {
 const CountryModal: React.FC<CountryModalProps> = ({navigation}) => {
   const [show, setShow] = useState(false);
   const [countryCode, setCountryCode] = useState('');
-  const [country, setCountry] = useState<{name: string; flag: string}>();
-
-  console.log('country', country);
+  const [country, setCountry] = useState<{name: string; flag: string}>({
+    name: 'Japan',
+    flag: '🇯🇵',
+  });
 
   const handlerModal = (name: string, flag: string) => {
     setCountry({name, flag});
@@ -34,7 +34,9 @@ const CountryModal: React.FC<CountryModalProps> = ({navigation}) => {
         For the best offers in your region
       </Text>
       <TouchableOpacity
-        onPress={() => setShow(true)}
+        onPress={() => {
+          setShow(true);
+        }}
         style={{
           width: '100%',
           height: 50,
@@ -42,6 +44,7 @@ const CountryModal: React.FC<CountryModalProps> = ({navigation}) => {
           backgroundColor: 'white',
           padding: 10,
           marginTop: 24,
+          justifyContent: 'center',
         }}>
         <Text
           style={{
@@ -50,8 +53,8 @@ const CountryModal: React.FC<CountryModalProps> = ({navigation}) => {
             fontSize: 16,
             paddingHorizontal: 8,
           }}>
-          {country?.name}
           {country?.flag}
+          {country?.name}
         </Text>
       </TouchableOpacity>
       <CountryPicker
@@ -71,18 +74,19 @@ const CountryModal: React.FC<CountryModalProps> = ({navigation}) => {
           <CountryItemAtom
             flag={it.item.flag}
             name={it.name}
-            onPress={() => handlerModal(it.item.flag, it.name)}
+            onPress={() => handlerModal(it.name, it.item.flag)}
           />
         )}
       />
       <View style={styles.container}>
         <PrimaryButton
           label={'Next'}
-          onPress={() => {}}
-          isDesable={false}
-          style={{
-
+          onPress={() => {
+            console.log('con', country);
+            navigation.navigate('choosename');
           }}
+          isDesable={false}
+          style={{}}
         />
       </View>
     </PrimeryWrapper>

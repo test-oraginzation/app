@@ -11,12 +11,32 @@ interface ChooseNameProps {
 const ChooseNamePass: React.FC<ChooseNameProps> = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
 
   const isPressed = () => {
     if (email === '' || password === '') {
       return true;
     } else {
       return false;
+    }
+  };
+
+  const validateEmail = (email: string) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+  };
+
+  const handleAuth = () => {
+    setEmailError(validateEmail(email) ? '' : 'Incorrect email format');
+    setPasswordError(
+      password.length >= 6
+        ? ''
+        : 'The password must contain at least 6 characters',
+    );
+
+    if (validateEmail(email) && password.length >= 6) {
+      navigation.navigate('choosephoto');
     }
   };
 
@@ -36,6 +56,7 @@ const ChooseNamePass: React.FC<ChooseNameProps> = ({navigation}) => {
           height: 50,
         }}
       />
+      {emailError ? <Text style={styles.textError}>{emailError}</Text> : null}
       <PrimaryInput
         value={password}
         onChangeText={setPassword}
@@ -48,6 +69,10 @@ const ChooseNamePass: React.FC<ChooseNameProps> = ({navigation}) => {
           height: 50,
         }}
       />
+      {passwordError ? (
+        <Text style={styles.textError}>{passwordError}</Text>
+      ) : null}
+
       <View style={styles.container}>
         <PrimaryButton
           isDesable={isPressed()}
@@ -56,7 +81,7 @@ const ChooseNamePass: React.FC<ChooseNameProps> = ({navigation}) => {
           }}
           label={'Next'}
           onPress={() => {
-            navigation.navigate('choosecountry');
+            handleAuth();
           }}
         />
       </View>
@@ -96,6 +121,12 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center',
     marginBottom: 16,
+  },
+  textError: {
+    fontFamily: 'Poppins-Regular',
+    color: 'red',
+    marginTop: 5,
+    marginLeft: 5,
   },
 });
 export default ChooseNamePass;

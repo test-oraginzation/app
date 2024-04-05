@@ -18,10 +18,12 @@ enum RouteKey {
 
 const Auth = () => {
   return (
-    <Stack.Navigator initialRouteName="choosecountry" screenOptions={{headerShown: false}}>
+    <Stack.Navigator
+      initialRouteName="onboarding"
+      screenOptions={{headerShown: false}}>
       <Stack.Screen name={RouteKey.OnBoarding} component={OnBoarding} />
-      <Stack.Screen name={RouteKey.ChooseName} component={ChooseNamePass} />
       <Stack.Screen name={RouteKey.ChooseCountry} component={ChooseCountry} />
+      <Stack.Screen name={RouteKey.ChooseName} component={ChooseNamePass} />
       <Stack.Screen name={RouteKey.ChoosePhoto} component={ChoosePhoto} />
     </Stack.Navigator>
   );
