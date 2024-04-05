@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import PrimaryButton from '../../../core/components/primaryButton/PrimaryButton.tsx';
 import PrimaryInput from '../../../core/components/primaryInput/PrimaryInput.tsx';
 import PrimeryWrapper from '../../../core/components/primeryWrapper/PrimeryWrapper.tsx';
@@ -13,6 +13,7 @@ const ChooseNamePass: React.FC<ChooseNameProps> = ({navigation}) => {
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
+  const [hidePassword, setHidePassword] = useState(true);
 
   const isPressed = () => {
     if (email === '' || password === '') {
@@ -40,6 +41,10 @@ const ChooseNamePass: React.FC<ChooseNameProps> = ({navigation}) => {
     }
   };
 
+  const togglePasswordVisibility = () => {
+    setHidePassword(!hidePassword);
+  };
+
   return (
     <PrimeryWrapper>
       <Text style={styles.mainText}>Email and password</Text>
@@ -57,18 +62,33 @@ const ChooseNamePass: React.FC<ChooseNameProps> = ({navigation}) => {
         }}
       />
       {emailError ? <Text style={styles.textError}>{emailError}</Text> : null}
-      <PrimaryInput
-        value={password}
-        onChangeText={setPassword}
-        placeholder="Password"
-        style={{
-          marginTop: 16,
-          paddingHorizontal: 16,
-          paddingVertical: 13,
-          width: '100%',
-          height: 50,
-        }}
-      />
+      <View style={{flexDirection: 'row', alignItems: 'center'}}>
+        <PrimaryInput
+          value={password}
+          onChangeText={setPassword}
+          placeholder="Password"
+          secureTextEntry={hidePassword}
+          style={{
+            marginTop: 16,
+            paddingHorizontal: 16,
+            paddingVertical: 13,
+            width: '100%',
+            height: 50,
+          }}
+        />
+        <TouchableOpacity
+          onPress={togglePasswordVisibility}
+          style={{marginLeft: -40, alignItems: 'center', height: 10}}>
+          <Image
+            source={
+              hidePassword
+                ? require('../../../../assets/images/hide.png')
+                : require('../../../../assets/images/view.png')
+            }
+            style={{width: 28, height: 28}}
+          />
+        </TouchableOpacity>
+      </View>
       {passwordError ? (
         <Text style={styles.textError}>{passwordError}</Text>
       ) : null}
@@ -94,7 +114,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Bold',
     fontSize: 26,
     color: 'black',
-    marginTop: 60,
+    marginTop: 24,
   },
   secondaryText: {
     fontFamily: 'Poppins-Regular',

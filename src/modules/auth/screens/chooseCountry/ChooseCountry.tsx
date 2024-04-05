@@ -86,7 +86,9 @@ const CountryModal: React.FC<CountryModalProps> = ({navigation}) => {
             navigation.navigate('choosename');
           }}
           isDesable={false}
-          style={{}}
+          style={{
+            marginBottom: 15,
+          }}
         />
       </View>
     </PrimeryWrapper>
@@ -100,7 +102,7 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Bold',
     fontSize: 26,
     color: 'black',
-    marginTop: 60,
+    marginTop: 24,
   },
   secondaryText: {
     fontFamily: 'Poppins-Regular',

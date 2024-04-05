@@ -6,18 +6,21 @@ interface InputProps {
   onChangeText: (text: string) => void;
   placeholder: string;
   style?: TextStyle;
+  secureTextEntry?: boolean;
 }
 const PrimaryInput = ({
   value,
   onChangeText,
   placeholder,
   style,
+  secureTextEntry,
 }: InputProps) => {
   return (
     <TextInput
       value={value}
       onChangeText={onChangeText}
       placeholder={placeholder}
+      secureTextEntry={secureTextEntry}
       style={[
         {
           borderRadius: 10,
