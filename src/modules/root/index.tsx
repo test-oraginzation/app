@@ -1,7 +1,7 @@
 import React from 'react';
 import {Image, TouchableOpacity, View} from 'react-native';
 import OnBoarding from '../auth/screens/onBoarding/OnBoarding.tsx';
-import ChooseNamePass from '../auth/screens/chooseNamePass/ChooseNamePass.tsx';
+import ChooseEmailPass from '../auth/screens/chooseNamePass/ChooseEmailPass.tsx';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import ChooseCountry from '../auth/screens/chooseCountry/ChooseCountry.tsx';
@@ -34,7 +34,7 @@ const Auth = () => {
       />
       <Stack.Screen
         name={RouteKey.ChooseName}
-        component={ChooseNamePass}
+        component={ChooseEmailPass}
         options={{
           headerShown: true,
           headerTransparent: true,

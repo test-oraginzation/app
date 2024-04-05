@@ -13,6 +13,11 @@ import PrimaryButton from '../../../core/components/primaryButton/PrimaryButton.
 
 interface CountryModalProps {
   navigation: any;
+  route: {
+    params: {
+      country: string;
+    };
+  };
 }
 
 const CountryModal: React.FC<CountryModalProps> = ({navigation}) => {
@@ -83,7 +88,7 @@ const CountryModal: React.FC<CountryModalProps> = ({navigation}) => {
           label={'Next'}
           onPress={() => {
             console.log('con', country);
-            navigation.navigate('choosename');
+            navigation.navigate('choosename', {country: country.name});
           }}
           isDesable={false}
           style={{

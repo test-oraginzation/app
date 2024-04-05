@@ -4,17 +4,25 @@ import PrimaryButton from '../../../core/components/primaryButton/PrimaryButton.
 import PrimaryInput from '../../../core/components/primaryInput/PrimaryInput.tsx';
 import PrimeryWrapper from '../../../core/components/primeryWrapper/PrimeryWrapper.tsx';
 
-interface ChooseNameProps {
+interface ChooseEmailPassProps {
   navigation: any;
+  route: {
+    params: {
+      country: string;
+    };
+  };
 }
 
-const ChooseNamePass: React.FC<ChooseNameProps> = ({navigation}) => {
+const ChooseEmailPass: React.FC<ChooseEmailPassProps> = ({
+  navigation,
+  route,
+}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [hidePassword, setHidePassword] = useState(true);
-
+  const {country} = route.params;
   const isPressed = () => {
     if (email === '' || password === '') {
       return true;
@@ -37,7 +45,11 @@ const ChooseNamePass: React.FC<ChooseNameProps> = ({navigation}) => {
     );
 
     if (validateEmail(email) && password.length >= 6) {
-      navigation.navigate('choosephoto');
+      navigation.navigate('choosephoto', {
+        country: country,
+        email: email,
+        password: password,
+      });
     }
   };
 
@@ -102,6 +114,7 @@ const ChooseNamePass: React.FC<ChooseNameProps> = ({navigation}) => {
           label={'Next'}
           onPress={() => {
             handleAuth();
+            console.log('coyntry', country);
           }}
         />
       </View>
@@ -149,4 +162,4 @@ const styles = StyleSheet.create({
     marginLeft: 5,
   },
 });
-export default ChooseNamePass;
+export default ChooseEmailPass;
