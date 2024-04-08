@@ -2,8 +2,8 @@ import React from 'react';
 import PrimeryWrapper from '../../../core/components/primeryWrapper/PrimeryWrapper.tsx';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import PrimaryButton from '../../../core/components/primaryButton/PrimaryButton.tsx';
-import axios from 'axios';
 import SecondaryButton from '../../../core/components/secondaryButton/SecondaryButton.tsx';
+import {registrationReq} from '../../api';
 
 interface ChoosePhotoProps {
   navigation: any;
@@ -21,14 +21,12 @@ const ChoosePhoto: React.FC<ChoosePhotoProps> = ({navigation, route}) => {
 
   const handleNextPress = async () => {
     try {
-      const response = await axios.post(
-        'http://10.10.10.228:3002/auth/sign-up',
-        {
-          country,
-          email,
-          password,
-        },
-      );
+      const response = await registrationReq({
+        country,
+        email,
+        password,
+        nickname: 'asd',
+      });
       console.log('Response:', response.data);
     } catch (error) {
       console.error('Error:', error);
@@ -51,7 +49,7 @@ const ChoosePhoto: React.FC<ChoosePhotoProps> = ({navigation, route}) => {
           style={{}}
           label={'Photo library'}
           onPress={() => {
-            // handleNextPress();
+            handleNextPress();
           }}
         />
         <SecondaryButton

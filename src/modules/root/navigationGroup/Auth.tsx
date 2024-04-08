@@ -2,7 +2,7 @@ import React from 'react';
 import OnBoarding from '../../auth/screens/onBoarding/OnBoarding.tsx';
 import ChooseCountry from '../../auth/screens/chooseCountry/ChooseCountry.tsx';
 import GoBack from '../components/GoBack.tsx';
-import ChooseEmailPass from '../../auth/screens/chooseNamePass/ChooseEmailPass.tsx';
+import ChooseEmailPass from '../../auth/screens/chooseEmailPass/ChooseEmailPass.tsx';
 import ChoosePhoto from '../../auth/screens/choosePhoto/ChoosePhoto.tsx';
 import SkipChoosePhoto from '../components/SkipChoosePhoto.tsx';
 import SignIn from '../../auth/screens/signIn/SignIn.tsx';
@@ -12,7 +12,7 @@ const Stack = createNativeStackNavigator();
 
 enum RouteKey {
   OnBoarding = 'onboarding',
-  ChooseName = 'choosename',
+  ChooseEmailPass = 'chooseemailpass',
   ChooseCountry = 'choosecountry',
   ChoosePhoto = 'choosephoto',
   SignIn = 'signin',
@@ -34,7 +34,7 @@ const Auth = () => {
         }}
       />
       <Stack.Screen
-        name={RouteKey.ChooseName}
+        name={RouteKey.ChooseEmailPass}
         component={ChooseEmailPass}
         options={{
           headerShown: true,
