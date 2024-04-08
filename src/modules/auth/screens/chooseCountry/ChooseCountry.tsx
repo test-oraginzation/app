@@ -87,7 +87,6 @@ const CountryModal: React.FC<CountryModalProps> = ({navigation}) => {
         <PrimaryButton
           label={'Next'}
           onPress={() => {
-            console.log('con', country);
             navigation.navigate('choosename', {country: country.name});
           }}
           isDesable={false}

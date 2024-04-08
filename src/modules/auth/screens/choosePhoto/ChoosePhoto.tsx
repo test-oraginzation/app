@@ -1,8 +1,9 @@
 import React from 'react';
 import PrimeryWrapper from '../../../core/components/primeryWrapper/PrimeryWrapper.tsx';
-import {StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, View} from 'react-native';
 import PrimaryButton from '../../../core/components/primaryButton/PrimaryButton.tsx';
 import axios from 'axios';
+import SecondaryButton from '../../../core/components/secondaryButton/SecondaryButton.tsx';
 
 interface ChoosePhotoProps {
   navigation: any;
@@ -13,11 +14,6 @@ interface ChoosePhotoProps {
       password: string;
     };
   };
-}
-
-interface Tokens {
-  accessToken: string;
-  refreshToken: string;
 }
 
 const ChoosePhoto: React.FC<ChoosePhotoProps> = ({navigation, route}) => {
@@ -34,26 +30,38 @@ const ChoosePhoto: React.FC<ChoosePhotoProps> = ({navigation, route}) => {
         },
       );
       console.log('Response:', response.data);
-      // Тут ви можете додати вашу логіку для успішної відповіді
     } catch (error) {
       console.error('Error:', error);
-      // Тут ви можете додати вашу логіку для обробки помилки
     }
   };
 
   return (
     <PrimeryWrapper>
-      <Text>asd</Text>
+      <Text style={styles.mainText}>Add a profile photo</Text>
+      <Text style={styles.secondaryText}>
+        So that your friends can recognize you!
+      </Text>
+      <Image
+        style={styles.image}
+        source={require('../../../../assets/images/Frame36.png')}
+      />
       <View style={styles.container}>
         <PrimaryButton
           isDesable={false}
           style={{
-            marginBottom: 16,
           }}
-          label={'Next'}
+          label={'Photo library'}
           onPress={() => {
-            handleNextPress();
+            // handleNextPress();
           }}
+        />
+        <SecondaryButton
+          isDesable={false}
+          style={{
+            backgroundColor: '#FFFFFF',
+          }}
+          label={'Camera'}
+          onPress={() => {}}
         />
       </View>
     </PrimeryWrapper>
@@ -67,6 +75,23 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
-    marginBottom: 16,
+  },
+  mainText: {
+    fontFamily: 'Poppins-Bold',
+    fontSize: 26,
+    color: 'black',
+    marginTop: 24,
+  },
+  secondaryText: {
+    fontFamily: 'Poppins-Regular',
+    fontSize: 16,
+    color: 'black',
+    marginTop: 10,
+  },
+  image: {
+    marginTop: 40,
+    width: 215,
+    height: 215,
+    alignSelf: 'center',
   },
 });

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Image, TouchableOpacity, View} from 'react-native';
+import {View} from 'react-native';
 import OnBoarding from '../auth/screens/onBoarding/OnBoarding.tsx';
 import ChooseEmailPass from '../auth/screens/chooseNamePass/ChooseEmailPass.tsx';
 import {NavigationContainer} from '@react-navigation/native';
@@ -7,6 +7,8 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import ChooseCountry from '../auth/screens/chooseCountry/ChooseCountry.tsx';
 import ChoosePhoto from '../auth/screens/choosePhoto/ChoosePhoto.tsx';
 import GoBack from './components/GoBack.tsx';
+import SkipChoosePhoto from './components/SkipChoosePhoto.tsx';
+import SignIn from '../auth/screens/signIn/SignIn.tsx';
 
 const Stack = createNativeStackNavigator();
 
@@ -15,6 +17,7 @@ enum RouteKey {
   ChooseName = 'choosename',
   ChooseCountry = 'choosecountry',
   ChoosePhoto = 'choosephoto',
+  SignIn = 'signin',
 }
 const Auth = () => {
   return (
@@ -45,6 +48,17 @@ const Auth = () => {
       <Stack.Screen
         name={RouteKey.ChoosePhoto}
         component={ChoosePhoto}
+        options={{
+          headerShown: true,
+          headerTransparent: true,
+          headerTitle: '',
+          headerLeft: () => <GoBack />,
+          headerRight: () => <SkipChoosePhoto />,
+        }}
+      />
+      <Stack.Screen
+        name={RouteKey.SignIn}
+        component={SignIn}
         options={{
           headerShown: true,
           headerTransparent: true,

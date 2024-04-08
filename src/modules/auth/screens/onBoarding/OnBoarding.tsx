@@ -2,6 +2,8 @@ import React from 'react';
 import PrimaryButton from '../../../core/components/primaryButton/PrimaryButton.tsx';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import PrimeryWrapper from '../../../core/components/primeryWrapper/PrimeryWrapper.tsx';
+import SecondaryButton from "../../../core/components/secondaryButton/SecondaryButton.tsx";
+import {createNativeStackNavigator} from "@react-navigation/native-stack";
 
 interface OnBoardingProps {
   navigation: any;
@@ -22,10 +24,13 @@ const OnBoarding: React.FC<OnBoardingProps> = ({navigation}) => {
         <PrimaryButton
           isDesable={false}
           style={{
-            marginBottom: 16,
           }}
-          label={'Get Started'}
+          label={'Sign up'}
           onPress={() => navigation.navigate('choosecountry')}
+        />
+        <SecondaryButton
+          label={'have an account?'}
+          onPress={() => navigation.navigate('signin')}
         />
       </View>
     </PrimeryWrapper>
@@ -65,6 +70,5 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
-    marginBottom: 16,
   },
 });
