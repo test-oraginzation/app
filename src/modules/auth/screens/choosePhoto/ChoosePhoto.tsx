@@ -48,8 +48,7 @@ const ChoosePhoto: React.FC<ChoosePhotoProps> = ({navigation, route}) => {
       <View style={styles.container}>
         <PrimaryButton
           isDesable={false}
-          style={{
-          }}
+          style={{}}
           label={'Photo library'}
           onPress={() => {
             // handleNextPress();

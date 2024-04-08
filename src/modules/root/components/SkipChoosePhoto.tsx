@@ -8,7 +8,7 @@ const SkipChoosePhoto = () => {
   return (
     <TouchableOpacity
       onPress={() => {
-        navigation.navigate('');
+        // navigation.navigate('');
       }}>
       <Text
         style={{
