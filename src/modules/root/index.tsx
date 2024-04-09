@@ -11,7 +11,6 @@ const Root = () => {
 
   const getToken = async () => {
     const existToken = await get(SessionType.AccessToken);
-    console.log(existToken);
     setToken(existToken);
   };
   useEffect(() => {

@@ -4,9 +4,7 @@ export interface IPayloadRegister {
   country: string;
   nickname: string;
 }
-
-
-export interface  SessionResp {
-  accessToken:string;
-  refreshToken:string;
+export interface SessionResp {
+  accessToken: string;
+  refreshToken: string;
 }

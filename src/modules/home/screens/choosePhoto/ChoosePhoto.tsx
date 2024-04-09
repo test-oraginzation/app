@@ -1,10 +1,59 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PrimeryWrapper from '../../../core/components/primeryWrapper/PrimeryWrapper.tsx';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {Image, Platform, StyleSheet, Text, View} from 'react-native';
 import PrimaryButton from '../../../core/components/primaryButton/PrimaryButton.tsx';
 import SecondaryButton from '../../../core/components/secondaryButton/SecondaryButton.tsx';
+import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
+import {get, removeItem} from '../../../core/services/storage.services.ts';
+import {SessionType} from '../../../core/typing/enums';
+import {getSignedUrl, uploadPhoto} from '../../api';
 
 const ChoosePhoto = () => {
+  const [selectImage, setSelectImage] = useState('');
+  const createFormData = (photo) => {
+    const data = new FormData();
+
+    data.append('photo', {
+      name: photo.fileName,
+      type: photo.type,
+      uri: Platform.OS === 'ios',
+    });
+
+    return data;
+  };
+  const ImagePicker = () => {
+    let options = {
+      storageOptions: {
+        path: 'image',
+      },
+    };
+
+    launchImageLibrary(options, response => {
+
+      if (response.didCancel) {
+        console.log('User cancelled image picker');
+      } else if (response.error) {
+        console.log('ImagePicker Error: ', response.error);
+      } else {
+        const fileName = response.assets[0].fileName;
+        setSelectImage(fileName);
+        get(SessionType.AccessToken)
+          .then(accessToken => {
+            return uploadPhoto(
+              createFormData(response),
+              getSignedUrl(fileName, accessToken),
+            );
+          })
+          .then(res => {
+            console.log(res.data);
+          })
+          .catch(error => {
+            console.log(error);
+          });
+      }
+    });
+  };
+
   return (
     <PrimeryWrapper>
       <Text style={styles.mainText}>Add a profile photo</Text>

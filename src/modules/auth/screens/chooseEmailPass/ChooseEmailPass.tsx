@@ -4,8 +4,8 @@ import PrimaryButton from '../../../core/components/primaryButton/PrimaryButton.
 import PrimaryInput from '../../../core/components/primaryInput/PrimaryInput.tsx';
 import PrimeryWrapper from '../../../core/components/primeryWrapper/PrimeryWrapper.tsx';
 import {registrationReq} from '../../api';
-import {set} from '../../../core/services/storage.services.ts';
 import {SessionType} from '../../../core/typing/enums';
+import {get, set} from "../../../core/services/storage.services.ts";
 
 interface ChooseEmailPassProps {
   navigation: any;
@@ -66,7 +66,7 @@ const ChooseEmailPass: React.FC<ChooseEmailPassProps> = ({route}) => {
         country,
         email,
         password,
-        nickname: 'cvb',
+        nickname: 'asdasdasd',
       });
       saveSession(data.accessToken, data.refreshToken);
     } catch (error) {
