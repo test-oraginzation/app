@@ -3,20 +3,12 @@ import OnBoarding from '../../auth/screens/onBoarding/OnBoarding.tsx';
 import ChooseCountry from '../../auth/screens/chooseCountry/ChooseCountry.tsx';
 import GoBack from '../components/GoBack.tsx';
 import ChooseEmailPass from '../../auth/screens/chooseEmailPass/ChooseEmailPass.tsx';
-import ChoosePhoto from '../../auth/screens/choosePhoto/ChoosePhoto.tsx';
-import SkipChoosePhoto from '../components/SkipChoosePhoto.tsx';
 import SignIn from '../../auth/screens/signIn/SignIn.tsx';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {RouteKey} from '../../core/typing/enums';
 
 const Stack = createNativeStackNavigator();
 
-enum RouteKey {
-  OnBoarding = 'onboarding',
-  ChooseEmailPass = 'chooseemailpass',
-  ChooseCountry = 'choosecountry',
-  ChoosePhoto = 'choosephoto',
-  SignIn = 'signin',
-}
 const Auth = () => {
   return (
     <Stack.Navigator
@@ -43,17 +35,7 @@ const Auth = () => {
           headerLeft: () => <GoBack />,
         }}
       />
-      <Stack.Screen
-        name={RouteKey.ChoosePhoto}
-        component={ChoosePhoto}
-        options={{
-          headerShown: true,
-          headerTransparent: true,
-          headerTitle: '',
-          headerLeft: () => <GoBack />,
-          headerRight: () => <SkipChoosePhoto />,
-        }}
-      />
+
       <Stack.Screen
         name={RouteKey.SignIn}
         component={SignIn}

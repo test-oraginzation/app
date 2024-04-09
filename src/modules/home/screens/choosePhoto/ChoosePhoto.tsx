@@ -3,36 +3,8 @@ import PrimeryWrapper from '../../../core/components/primeryWrapper/PrimeryWrapp
 import {Image, StyleSheet, Text, View} from 'react-native';
 import PrimaryButton from '../../../core/components/primaryButton/PrimaryButton.tsx';
 import SecondaryButton from '../../../core/components/secondaryButton/SecondaryButton.tsx';
-import {registrationReq} from '../../api';
 
-interface ChoosePhotoProps {
-  navigation: any;
-  route: {
-    params: {
-      country: string;
-      email: string;
-      password: string;
-    };
-  };
-}
-
-const ChoosePhoto: React.FC<ChoosePhotoProps> = ({navigation, route}) => {
-  const {country, email, password} = route.params;
-
-  const handleNextPress = async () => {
-    try {
-      const response = await registrationReq({
-        country,
-        email,
-        password,
-        nickname: 'asd',
-      });
-      console.log('Response:', response.data);
-    } catch (error) {
-      console.error('Error:', error);
-    }
-  };
-
+const ChoosePhoto = () => {
   return (
     <PrimeryWrapper>
       <Text style={styles.mainText}>Add a profile photo</Text>
@@ -49,7 +21,7 @@ const ChoosePhoto: React.FC<ChoosePhotoProps> = ({navigation, route}) => {
           style={{}}
           label={'Photo library'}
           onPress={() => {
-            handleNextPress();
+            ImagePicker();
           }}
         />
         <SecondaryButton

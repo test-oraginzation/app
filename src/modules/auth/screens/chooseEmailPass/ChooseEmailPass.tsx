@@ -3,26 +3,28 @@ import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import PrimaryButton from '../../../core/components/primaryButton/PrimaryButton.tsx';
 import PrimaryInput from '../../../core/components/primaryInput/PrimaryInput.tsx';
 import PrimeryWrapper from '../../../core/components/primeryWrapper/PrimeryWrapper.tsx';
+import {registrationReq} from '../../api';
+import {set} from '../../../core/services/storage.services.ts';
+import {SessionType} from '../../../core/typing/enums';
 
 interface ChooseEmailPassProps {
   navigation: any;
   route: {
     params: {
       country: string;
+      email: string;
+      password: string;
     };
   };
 }
+const ChooseEmailPass: React.FC<ChooseEmailPassProps> = ({route}) => {
+  const {country} = route.params;
 
-const ChooseEmailPass: React.FC<ChooseEmailPassProps> = ({
-  navigation,
-  route,
-}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [hidePassword, setHidePassword] = useState(true);
-  const {country} = route.params;
   const isPressed = () => {
     if (email === '' || password === '') {
       return true;
@@ -46,16 +48,30 @@ const ChooseEmailPass: React.FC<ChooseEmailPassProps> = ({
     );
 
     if (validateEmail(email) && password.length >= 6) {
-      navigation.navigate('choosephoto', {
-        country: country,
-        email: email,
-        password: password,
-      });
+      handleNextPress();
     }
   };
 
   const togglePasswordVisibility = () => {
     setHidePassword(!hidePassword);
+  };
+
+  const saveSession = async (accessToken: string, refreshToken: string) => {
+    await set(SessionType.AccessToken, accessToken);
+    await set(SessionType.RefreshToken, refreshToken);
+  };
+  const handleNextPress = async () => {
+    try {
+      const {data} = await registrationReq({
+        country,
+        email,
+        password,
+        nickname: 'cvb',
+      });
+      saveSession(data.accessToken, data.refreshToken);
+    } catch (error) {
+      console.error('Error:', error);
+    }
   };
   return (
     <PrimeryWrapper>
@@ -111,7 +127,7 @@ const ChooseEmailPass: React.FC<ChooseEmailPassProps> = ({
           style={{
             marginBottom: 16,
           }}
-          label={'Next'}
+          label={'Register'}
           onPress={() => {
             handleAuth();
           }}
