@@ -18,9 +18,7 @@ const Root = () => {
   }, []);
   return (
     <View style={{flex: 1}}>
-      <NavigationContainer>
-        {token ? <User /> : <Auth />}
-      </NavigationContainer>
+      <NavigationContainer>{token ? <User /> : <Auth />}</NavigationContainer>
     </View>
   );
 };

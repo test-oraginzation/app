@@ -23,10 +23,9 @@ const OnBoarding: React.FC<OnBoardingProps> = ({navigation}) => {
       <View style={styles.container}>
         <PrimaryButton
           isDesable={false}
-          style={{
-          }}
+          style={{}}
           label={'Sign up'}
-          onPress={() => navigation.navigate('choosecountry')}
+          onPress={() => navigation.navigate('choosename')}
         />
         <SecondaryButton
           label={'have an account?'}

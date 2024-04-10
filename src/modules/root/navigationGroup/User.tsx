@@ -10,7 +10,7 @@ const Stack = createNativeStackNavigator();
 const User = () => {
   return (
     <Stack.Navigator
-      initialRouteName="choosephoto"
+      initialRouteName="homescreen"
       screenOptions={{headerShown: false}}>
       <Stack.Screen
         name={RouteKey.ChoosePhoto}

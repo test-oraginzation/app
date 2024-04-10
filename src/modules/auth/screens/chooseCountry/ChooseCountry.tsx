@@ -10,19 +10,23 @@ import {
 import {CountryPicker} from 'react-native-country-codes-picker';
 import {CountryItemAtom} from './atoms';
 import PrimaryButton from '../../../core/components/primaryButton/PrimaryButton.tsx';
+import {name} from 'axios';
 
 interface CountryModalProps {
   navigation: any;
   route: {
     params: {
       country: string;
+      nickname: string;
     };
   };
 }
 
-const CountryModal: React.FC<CountryModalProps> = ({navigation}) => {
+const CountryModal: React.FC<CountryModalProps> = ({navigation, route}) => {
+  const {nickname} = route.params;
+
   const [show, setShow] = useState(false);
-  const [countryCode, setCountryCode] = useState('');
+  const [, setCountryCode] = useState('');
   const [country, setCountry] = useState<{name: string; flag: string}>({
     name: 'Japan',
     flag: '🇯🇵',
@@ -87,7 +91,10 @@ const CountryModal: React.FC<CountryModalProps> = ({navigation}) => {
         <PrimaryButton
           label={'Next'}
           onPress={() => {
-            navigation.navigate('chooseemailpass', {country: country.name});
+            navigation.navigate('chooseemailpass', {
+              country: country.name,
+              nickname: nickname,
+            });
           }}
           isDesable={false}
           style={{

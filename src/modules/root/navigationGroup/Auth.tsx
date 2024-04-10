@@ -6,6 +6,7 @@ import ChooseEmailPass from '../../auth/screens/chooseEmailPass/ChooseEmailPass.
 import SignIn from '../../auth/screens/signIn/SignIn.tsx';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {RouteKey} from '../../core/typing/enums';
+import ChooseName from '../../auth/screens/chooseName/ChooseName.tsx';
 
 const Stack = createNativeStackNavigator();
 
@@ -26,6 +27,16 @@ const Auth = () => {
         }}
       />
       <Stack.Screen
+        name={RouteKey.ChooseName}
+        component={ChooseName}
+        options={{
+          headerShown: true,
+          headerTransparent: true,
+          headerTitle: '',
+          headerLeft: () => <GoBack />,
+        }}
+      />
+      <Stack.Screen
         name={RouteKey.ChooseEmailPass}
         component={ChooseEmailPass}
         options={{
@@ -35,7 +46,6 @@ const Auth = () => {
           headerLeft: () => <GoBack />,
         }}
       />
-
       <Stack.Screen
         name={RouteKey.SignIn}
         component={SignIn}

@@ -5,14 +5,13 @@ export enum RouteKey {
   ChooseCountry = 'choosecountry',
   ChoosePhoto = 'choosephoto',
   SignIn = 'signin',
+  ChooseName = 'choosename',
 }
 export enum NavGroup {
   Auth = 'Auth',
   User = 'User',
   Loading = 'Loading',
 }
-
-
 export enum SessionType {
   AccessToken = 'accessToken',
   RefreshToken = 'refreshToken',

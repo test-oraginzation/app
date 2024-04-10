@@ -5,8 +5,7 @@ import PrimaryInput from '../../../core/components/primaryInput/PrimaryInput.tsx
 import PrimeryWrapper from '../../../core/components/primeryWrapper/PrimeryWrapper.tsx';
 import {registrationReq} from '../../api';
 import {SessionType} from '../../../core/typing/enums';
-import {get, set} from "../../../core/services/storage.services.ts";
-
+import {set} from '../../../core/services/storage.services.ts';
 interface ChooseEmailPassProps {
   navigation: any;
   route: {
@@ -14,11 +13,12 @@ interface ChooseEmailPassProps {
       country: string;
       email: string;
       password: string;
+      nickname: string;
     };
   };
 }
 const ChooseEmailPass: React.FC<ChooseEmailPassProps> = ({route}) => {
-  const {country} = route.params;
+  const {country, nickname} = route.params;
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -66,7 +66,7 @@ const ChooseEmailPass: React.FC<ChooseEmailPassProps> = ({route}) => {
         country,
         email,
         password,
-        nickname: 'asdasdasd',
+        nickname,
       });
       saveSession(data.accessToken, data.refreshToken);
     } catch (error) {
