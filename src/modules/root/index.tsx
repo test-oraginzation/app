@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import Auth from './navigationGroup/Auth.tsx';
-import User from './navigationGroup/User.tsx';
+import {UserNavigationGroup} from './navigationGroup/UserNavigationGrup.tsx';
 import {get} from '../core/services/storage.services.ts';
 import {SessionType} from '../core/typing/enums';
 
@@ -18,7 +18,10 @@ const Root = () => {
   }, []);
   return (
     <View style={{flex: 1}}>
-      <NavigationContainer>{token ? <User /> : <Auth />}</NavigationContainer>
+      <NavigationContainer>
+        <UserNavigationGroup />
+        {/*: <Auth />}*/}
+      </NavigationContainer>
     </View>
   );
 };

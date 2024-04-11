@@ -1,11 +1,17 @@
 export enum RouteKey {
-  HomeScreen = 'homescreen',
+  Home = 'home',
   OnBoarding = 'onboarding',
   ChooseEmailPass = 'chooseemailpass',
   ChooseCountry = 'choosecountry',
   ChoosePhoto = 'choosephoto',
   SignIn = 'signin',
   ChooseName = 'choosename',
+  TabBar = 'TabBar',
+  Search = 'Search',
+  Settings = 'Settings',
+  Friends = 'Friends',
+  Action = 'Action',
+  TabButton = 'TabButton',
 }
 export enum NavGroup {
   Auth = 'Auth',

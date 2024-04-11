@@ -12,7 +12,8 @@ instance.interceptors.response.use(
   response => response, // Успішна відповідь без змін
   async error => {
     const originalRequest = error.config;
-
+    console.log('-------------');
+    console.log('error', error.response.status);
     // Перевіряємо, чи статусні код 401 і чи маємо refreshToken у AsyncStorage
     if (
       error.response.status === 401 &&

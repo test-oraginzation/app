@@ -26,6 +26,7 @@
 		97DCB32E9CA74B049B978B20 /* Poppins-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 56C6AFD6A9084B95AA2E8F13 /* Poppins-LightItalic.ttf */; };
 		9AC8A839BB4F409E86CEEB58 /* Poppins-MediumItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EAD31E1F9F644AF99B9E96A0 /* Poppins-MediumItalic.ttf */; };
 		9E44F017EA5F4BA8A8DA7D61 /* Poppins-ThinItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 947CAE48B3C94318AE649B40 /* Poppins-ThinItalic.ttf */; };
+		B5B9D9067AF24A4D9631328C /* fontello.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4082F0A5A86F48119B7F06E7 /* fontello.ttf */; };
 		B6349044668046388211B7D1 /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6671CF83802547C4B7B49004 /* Poppins-SemiBold.ttf */; };
 		C467D3556BED4F3F9691A6BD /* Poppins-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 206CDBB40AC54F01AFFA774C /* Poppins-ExtraBoldItalic.ttf */; };
 		D22877CB42DA4BE0AB37285A /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3A5C046550084EEBA8977C61 /* Poppins-Light.ttf */; };
@@ -61,6 +62,7 @@
 		206CDBB40AC54F01AFFA774C /* Poppins-ExtraBoldItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-ExtraBoldItalic.ttf"; path = "../src/assets/fonts/Poppins-ExtraBoldItalic.ttf"; sourceTree = "<group>"; };
 		3A5C046550084EEBA8977C61 /* Poppins-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Light.ttf"; path = "../src/assets/fonts/Poppins-Light.ttf"; sourceTree = "<group>"; };
 		3B4392A12AC88292D35C810B /* Pods-WishListMobile.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WishListMobile.debug.xcconfig"; path = "Target Support Files/Pods-WishListMobile/Pods-WishListMobile.debug.xcconfig"; sourceTree = "<group>"; };
+		4082F0A5A86F48119B7F06E7 /* fontello.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = fontello.ttf; path = ../src/assets/fonts/fontello.ttf; sourceTree = "<group>"; };
 		4B5577ED35BC4CF19B59CC77 /* Poppins-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Medium.ttf"; path = "../src/assets/fonts/Poppins-Medium.ttf"; sourceTree = "<group>"; };
 		56C6AFD6A9084B95AA2E8F13 /* Poppins-LightItalic.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-LightItalic.ttf"; path = "../src/assets/fonts/Poppins-LightItalic.ttf"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-WishListMobile.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WishListMobile.release.xcconfig"; path = "Target Support Files/Pods-WishListMobile/Pods-WishListMobile.release.xcconfig"; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 				030FB9C58F844985BFC3EF66 /* Poppins-SemiBoldItalic.ttf */,
 				F3FB59154E6346BDB5DC4D2E /* Poppins-Thin.ttf */,
 				947CAE48B3C94318AE649B40 /* Poppins-ThinItalic.ttf */,
+				4082F0A5A86F48119B7F06E7 /* fontello.ttf */,
 			);
 			name = Resources;
 			path = "";
@@ -324,6 +327,7 @@
 				580ED60B9550451AA318CC0C /* Poppins-SemiBoldItalic.ttf in Resources */,
 				F3CF7E8AA452474E960FEBC0 /* Poppins-Thin.ttf in Resources */,
 				9E44F017EA5F4BA8A8DA7D61 /* Poppins-ThinItalic.ttf in Resources */,
+				B5B9D9067AF24A4D9631328C /* fontello.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
