@@ -1,11 +1,11 @@
 import React from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Image, StyleSheet, Text, View} from 'react-native';
 import SearchButton from './atom/SearchButton.tsx';
 
 const HeaderHome = () => {
   return (
     <View style={stules.headerHome}>
-      <View style={stules.miniContainer}>
+      <View style={stules.miniContainerfirst}>
         <View style={{flex: 1, flexDirection: 'row'}}>
           <Image
             source={require('../../../../assets/images/auth.png')}
@@ -18,13 +18,13 @@ const HeaderHome = () => {
         </View>
         <SearchButton onPress={() => {}} style={{}} />
       </View>
-      <View style={stules.miniContainer}>
-        <View>
+      <View style={stules.miniContainersecond}>
+        <View style={stules.textContainer}>
           <Text style={stules.buttonText}>55</Text>
           <Text style={stules.smalText}>Subscribers</Text>
         </View>
-        <View style={}/>
-        <View>
+        <View style={stules.stick} />
+        <View style={stules.textContainer}>
           <Text style={stules.buttonText}>55</Text>
           <Text style={stules.smalText}>Subscriptions</Text>
         </View>
@@ -47,11 +47,18 @@ const stules = StyleSheet.create({
     color: 'black',
     marginTop: 2,
   },
-  miniContainer: {
+  miniContainerfirst: {
     flex: 1,
     flexDirection: 'row',
     marginHorizontal: 16,
     alignItems: 'center',
+  },
+  miniContainersecond: {
+    flex: 1,
+    flexDirection: 'row',
+    marginHorizontal: 16,
+    alignItems: 'center',
+    justifyContent: 'space-around',
   },
   profilePicture: {
     height: 64,
@@ -79,5 +86,9 @@ const stules = StyleSheet.create({
     height: 30,
     width: 1,
     backgroundColor: 'black',
+  },
+  textContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
