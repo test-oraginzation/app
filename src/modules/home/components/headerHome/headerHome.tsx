@@ -1,8 +1,44 @@
-import React from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {FlatList, Image, StyleSheet, Text, View} from 'react-native';
 import SearchButton from './atom/SearchButton.tsx';
+import axios, {AxiosResponse} from 'axios';
+import {BASE_URL} from '../../../../configs/access.config.ts';
+import http from '../../../../api/axiosInstance.ts';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
+interface User {
+  nickname: string;
+}
 
 const HeaderHome = () => {
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        const accessToken = await AsyncStorage.getItem('accessToken');
+
+        if (!accessToken) {
+          throw new Error('AccessToken не знайдений');
+        }
+
+        const headers = {
+          Authorization: `Bearer ${accessToken}`,
+        };
+
+        const response: AxiosResponse<User> = await axios.get(
+          `${BASE_URL}users/profile`,
+          {headers},
+        );
+
+        setUser(response.data);
+      } catch (error) {
+        console.error('Помилка отримання даних з сервера:', error);
+      }
+    };
+
+    fetchUserProfile();
+  }, []);
   return (
     <View style={stules.headerHome}>
       <View style={stules.miniContainerfirst}>
@@ -13,7 +49,7 @@ const HeaderHome = () => {
           />
           <View>
             <Text style={stules.mainText}>Good morning</Text>
-            <Text style={stules.secondaryText}>Jennifer!</Text>
+            {user && <Text style={stules.secondaryText}>{user.nickname}</Text>}
           </View>
         </View>
         <SearchButton onPress={() => {}} style={{}} />

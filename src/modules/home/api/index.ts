@@ -1,4 +1,4 @@
-import {PhotoName, PhotoUrl} from './interface.ts';
+import {PhotoUrl} from './interface.ts';
 import axios from 'axios';
 import {BASE_URL} from '../../../configs/access.config.ts';
 import http from '../../../api/axiosInstance.ts';

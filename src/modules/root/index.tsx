@@ -19,8 +19,9 @@ const Root = () => {
   return (
     <View style={{flex: 1}}>
       <NavigationContainer>
+        {/*{token ? <UserNavigationGroup /> : <Auth />}*/}
         <UserNavigationGroup />
-        {/*: <Auth />}*/}
+        {/*<Auth />*/}
       </NavigationContainer>
     </View>
   );
