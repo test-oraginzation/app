@@ -4,3 +4,6 @@ export interface PhotoName {
 export interface PhotoUrl {
   url: string;
 }
+export interface User {
+  nickname: string;
+}

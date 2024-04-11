@@ -1,10 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {FlatList, Image, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, View} from 'react-native';
 import SearchButton from './atom/SearchButton.tsx';
-import axios, {AxiosResponse} from 'axios';
-import {BASE_URL} from '../../../../configs/access.config.ts';
-import http from '../../../../api/axiosInstance.ts';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import {fetchUserProfile} from '../../api';
 
 interface User {
   nickname: string;
@@ -14,30 +11,15 @@ const HeaderHome = () => {
   const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
-    const fetchUserProfile = async () => {
+    const fetchData = async () => {
       try {
-        const accessToken = await AsyncStorage.getItem('accessToken');
-
-        if (!accessToken) {
-          throw new Error('AccessToken не знайдений');
-        }
-
-        const headers = {
-          Authorization: `Bearer ${accessToken}`,
-        };
-
-        const response: AxiosResponse<User> = await axios.get(
-          `${BASE_URL}users/profile`,
-          {headers},
-        );
-
-        setUser(response.data);
+        const userProfile = await fetchUserProfile();
+        setUser(userProfile);
       } catch (error) {
         console.error('Помилка отримання даних з сервера:', error);
       }
     };
-
-    fetchUserProfile();
+    fetchData();
   }, []);
   return (
     <View style={stules.headerHome}>
