@@ -1,5 +1,5 @@
 import React from 'react';
-import {TabBarItemAtom} from './atoms';
+import {ActionButtonAtom, TabBarItemAtom} from './atoms';
 import {Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {tabBarIconsConfig} from '../../nav-bar.config.tsx';
 import {RouteKey} from '../../../core/typing/enums';
@@ -16,14 +16,7 @@ export const TabBar = ({routes, onPressItem, activeIndex}: TabBarProps) => {
     const isActive = activeIndex === index;
     const onPress = () => onPressItem(index, route);
     if (RouteKey.TabButton === route) {
-      return (
-        <TouchableOpacity
-          style={styles.plus}
-          key={`${route}-${index}`}
-          onPress={() => console.log('привіт')}>
-          <Icon name={'plus'} size={24} color={'#4E9FFF'} />
-        </TouchableOpacity>
-      );
+      return <ActionButtonAtom key={`${route}-${index}`} />;
     }
     return (
       <TabBarItemAtom
@@ -57,15 +50,5 @@ const styles = StyleSheet.create({
     elevation: 4,
     paddingHorizontal: 5,
     borderRadius: 10,
-  },
-  plus: {
-    width: 60,
-    height: 60,
-    borderRadius: 50,
-    backgroundColor: 'transparent',
-    borderColor: 'black',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 50,
   },
 });
