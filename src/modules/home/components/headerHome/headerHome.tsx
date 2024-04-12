@@ -9,18 +9,18 @@ interface User {
 
 const HeaderHome = () => {
   const [user, setUser] = useState<User | null>(null);
-
+  const fetchData = async () => {
+    try {
+      const userProfile = await fetchUserProfile();
+      setUser(userProfile);
+    } catch (error) {
+      console.error('Помилка отримання даних з сервера:', error);
+    }
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const userProfile = await fetchUserProfile();
-        setUser(userProfile);
-      } catch (error) {
-        console.error('Помилка отримання даних з сервера:', error);
-      }
-    };
     fetchData();
   }, []);
+
   return (
     <View style={stules.headerHome}>
       <View style={stules.miniContainerfirst}>

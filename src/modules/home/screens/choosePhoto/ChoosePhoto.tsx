@@ -3,53 +3,44 @@ import PrimeryWrapper from '../../../core/components/primeryWrapper/PrimeryWrapp
 import {Image, Platform, StyleSheet, Text, View} from 'react-native';
 import PrimaryButton from '../../../core/components/primaryButton/PrimaryButton.tsx';
 import SecondaryButton from '../../../core/components/secondaryButton/SecondaryButton.tsx';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import {get, removeItem} from '../../../core/services/storage.services.ts';
+import {launchImageLibrary} from 'react-native-image-picker';
+import {get} from '../../../core/services/storage.services.ts';
 import {SessionType} from '../../../core/typing/enums';
-import {getSignedUrl, uploadPhoto} from '../../api';
+import {finishUpload, getSignedUrl, uploadPhoto} from '../../api';
+import {readFile} from 'react-native-fs';
 
 const ChoosePhoto = () => {
-  const [selectImage, setSelectImage] = useState('');
-  const createFormData = (photo) => {
-    const data = new FormData();
+  const [selectedImage, setSelectedImage] = useState(null);
 
-    data.append('photo', {
-      name: photo.fileName,
-      type: photo.type,
-      uri: Platform.OS === 'ios',
-    });
-
-    return data;
+  const loadImageBase64 = async capturedImageURI => {
+    try {
+      const base64Data = await readFile(capturedImageURI, 'base64');
+      return 'data:image/jpeg;base64,' + base64Data;
+    } catch (error) {
+      console.error('Error converting image to base64:', error);
+    }
   };
-  const ImagePicker = () => {
-    let options = {
-      storageOptions: {
-        path: 'image',
-      },
+
+  const handleChoosePhoto = () => {
+    const options = {
+      mediaType: 'photo',
     };
-
     launchImageLibrary(options, response => {
-
       if (response.didCancel) {
         console.log('User cancelled image picker');
       } else if (response.error) {
         console.log('ImagePicker Error: ', response.error);
+      } else if (response.customButton) {
+        console.log('User tapped custom button: ', response.customButton);
       } else {
-        const fileName = response.assets[0].fileName;
-        setSelectImage(fileName);
-        get(SessionType.AccessToken)
-          .then(accessToken => {
-            return uploadPhoto(
-              createFormData(response),
-              getSignedUrl(fileName, accessToken),
-            );
-          })
-          .then(res => {
-            console.log(res.data);
-          })
-          .catch(error => {
-            console.log(error);
-          });
+        setSelectedImage(response.assets[0]);
+        console.log('Selected Image:', response.assets[0].base64);
+        const url = getSignedUrl(response.assets[0].fileName);
+        const image = loadImageBase64(response.assets[0].uri);
+        if (url) {
+          uploadPhoto(image, url);
+        }
+        const updatedUser = finishUpload();
       }
     });
   };
@@ -70,7 +61,7 @@ const ChoosePhoto = () => {
           style={{}}
           label={'Photo library'}
           onPress={() => {
-            ImagePicker();
+            handleChoosePhoto();
           }}
         />
         <SecondaryButton

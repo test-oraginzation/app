@@ -15,11 +15,7 @@ instance.interceptors.response.use(
     console.log('-------------');
     console.log('error', error.response.status);
     // Перевіряємо, чи статусні код 401 і чи маємо refreshToken у AsyncStorage
-    if (
-      error.response.status === 401 &&
-      originalRequest &&
-      !originalRequest._retry
-    ) {
+    if (error.response.status === 401) {
       originalRequest._retry = true;
 
       // Отримуємо refreshToken з AsyncStorage

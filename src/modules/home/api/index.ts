@@ -1,18 +1,20 @@
-import {PhotoUrl, User} from './interface.ts';
+import {User} from './interface.ts';
 import axios, {AxiosResponse} from 'axios';
 import {BASE_URL} from '../../../configs/access.config.ts';
 import http from '../../../api/axiosInstance.ts';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const getSignedUrl = (photoName: string, accessToken: string) => {
-  return axios.get<PhotoUrl>(
-    `${BASE_URL}files/signed-create?name=${photoName}`,
-    {headers: {Authorization: `Bearer ${accessToken}`}},
-  );
+export const getSignedUrl = (photoName: string) => {
+  return http.get(`${BASE_URL}files/presigned?name=${Date.now()}${photoName}`);
 };
-export const uploadPhoto = (file: object, url: string) => {
+export const uploadPhoto = (file: any, url: string) => {
   return axios.put(url, file);
 };
+
+export const finishUpload = () => {
+  return http.get(`${BASE_URL}files/finish`);
+};
+
 export const fetchUserProfile = async (): Promise<User> => {
   try {
     // Отримуємо accessToken з локального сховища
