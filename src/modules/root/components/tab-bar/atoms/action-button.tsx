@@ -1,13 +1,9 @@
 import React from 'react';
 
-import {StyleSheet} from 'react-native';
+import {Text} from 'react-native';
 
 export const ActionButtonAtom = () => {
   return (
-   <></>
+    <Text>в майбутньому кнопка посередині</Text>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {bottom: 35},
-});

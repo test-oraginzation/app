@@ -5,12 +5,13 @@ import Auth from './navigationGroup/Auth.tsx';
 import {UserNavigationGroup} from './navigationGroup/UserNavigationGrup.tsx';
 import {get} from '../core/services/storage.services.ts';
 import {SessionType} from '../core/typing/enums';
+import AddWith from "../home/screens/addWith/AddWith.tsx";
 
 const Root = () => {
   const [token, setToken] = useState('');
 
   const getToken = async () => {
-    const existToken = await get(SessionType.AccessToken);
+    const existToken: any = await get(SessionType.AccessToken);
     setToken(existToken);
   };
   useEffect(() => {
@@ -19,9 +20,10 @@ const Root = () => {
   return (
     <View style={{flex: 1}}>
       <NavigationContainer>
-        {token ? <UserNavigationGroup /> : <Auth />}
-        {/*<UserNavigationGroup />*/}
+        {/*{token ? <UserNavigationGroup /> : <Auth />}*/}
+        <UserNavigationGroup />
         {/*<Auth />*/}
+        {/*<AddWith />*/}
       </NavigationContainer>
     </View>
   );

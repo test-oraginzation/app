@@ -1,6 +1,6 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {Icon} from "../../../../core/components/icons/iconsComponents.tsx";
+import {StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {Icon} from '../../../../core/components/icons/iconsComponents.tsx';
 
 interface TabBarItemProps {
   isActive: boolean;
@@ -8,18 +8,20 @@ interface TabBarItemProps {
   name: string;
   icon: any;
 }
-
 export const TabBarItemAtom = ({
   isActive,
   onPress,
   name,
   icon,
 }: TabBarItemProps) => {
-
   return (
     <TouchableOpacity onPress={onPress} style={styles.container}>
-      <Icon name={icon} size={20} color={isActive ? 'red':' grey'}/>
-      <Text>
+      <Icon name={icon} size={24} color={isActive ? 'black' : 'grey'} />
+      <Text
+        style={{
+          marginTop: 6,
+          color: isActive ? 'black' : 'grey',
+        }}>
         {name}
       </Text>
     </TouchableOpacity>
@@ -27,8 +29,8 @@ export const TabBarItemAtom = ({
 };
 
 const styles = StyleSheet.create({
-    container: {
-      flexDirection: 'column',
-      alignItems: 'center',
-    },
-  });
+  container: {
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+});

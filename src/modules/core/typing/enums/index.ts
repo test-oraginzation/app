@@ -12,7 +12,6 @@ export enum RouteKey {
   Friends = 'Friends',
   Action = 'Action',
   TabButton = 'TabButton',
-  TabBarActionMenu = 'TabBarActionMenu',
 }
 export enum NavGroup {
   Auth = 'Auth',

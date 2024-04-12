@@ -2,7 +2,7 @@ import axios from 'axios';
 import {BASE_URL} from '../configs/access.config.ts';
 import {SessionType} from '../modules/core/typing/enums';
 import {get, set} from '../modules/core/services/storage.services.ts';
-// Створюємо новий екземпляр Axios
+
 const instance = axios.create({
   baseURL: `${BASE_URL}`,
 });

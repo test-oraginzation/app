@@ -1,10 +1,9 @@
 import React from 'react';
-import {Text} from "react-native";
+import {Text, View} from 'react-native';
+import HomePageMainContentEmpty from '../homePageMainContentEmpty/HomePageMainContentEmpty.tsx';
 
 const Wish = () => {
-  return (
-    <Text>Wish</Text>
-  );
+  return <View>{true ? <HomePageMainContentEmpty /> : <Text>asd</Text>}</View>;
 };
 
 export default Wish;

@@ -26,13 +26,7 @@ const TabNavigationGroup = () => {
       )}>
       <TabStack.Screen name={RouteKey.Home} component={HomeScreen} />
       <TabStack.Screen name={RouteKey.Friends} component={FriendsScreen} />
-      <TabStack.Screen
-        name={RouteKey.TabButton}
-        component={TabButton}
-        options={{
-          tabBarIcon: () => <Icon name={'plus'} size={24} color={'#4E9FFF'} />,
-        }}
-      />
+      <TabStack.Screen name={RouteKey.TabButton} component={TabButton} />
       <TabStack.Screen name={RouteKey.Search} component={SearchScreen} />
       <TabStack.Screen name={RouteKey.Settings} component={SettingScreen} />
     </TabStack.Navigator>

@@ -1,6 +1,6 @@
 import React from 'react';
 import {TabBarItemAtom} from './atoms';
-import {Platform, StyleSheet, View} from 'react-native';
+import {Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
 import {tabBarIconsConfig} from '../../nav-bar.config.tsx';
 import {RouteKey} from '../../../core/typing/enums';
 import {Icon} from '../../../core/components/icons/iconsComponents.tsx';
@@ -15,8 +15,15 @@ export const TabBar = ({routes, onPressItem, activeIndex}: TabBarProps) => {
   const tabItems = routes.map((route: string, index) => {
     const isActive = activeIndex === index;
     const onPress = () => onPressItem(index, route);
-    if (RouteKey.Action === route) {
-      return <Icon key={`${route}-${index}`} name={'plus'} size={20} />;
+    if (RouteKey.TabButton === route) {
+      return (
+        <TouchableOpacity
+          style={styles.plus}
+          key={`${route}-${index}`}
+          onPress={() => console.log('привіт')}>
+          <Icon name={'plus'} size={24} color={'#4E9FFF'} />
+        </TouchableOpacity>
+      );
     }
     return (
       <TabBarItemAtom
@@ -39,17 +46,26 @@ const styles = StyleSheet.create({
   container: {
     position: 'relative',
     flexDirection: 'row',
-    height: Platform.OS === 'ios' ? 80 : 70,
+    height: Platform.OS === 'ios' ? 90 : 70,
     alignItems: 'center',
     justifyContent: 'space-evenly',
     paddingBottom: Platform.select({
-      ios: 10,
+      ios: 24,
       android: 0,
     }),
-    shadowOffset: {width: 0, height: 3},
-    shadowOpacity: 0.3,
-    shadowRadius: 10,
+    backgroundColor: 'white',
     elevation: 4,
     paddingHorizontal: 5,
+    borderRadius: 10,
+  },
+  plus: {
+    width: 60,
+    height: 60,
+    borderRadius: 50,
+    backgroundColor: 'transparent',
+    borderColor: 'black',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 50,
   },
 });
