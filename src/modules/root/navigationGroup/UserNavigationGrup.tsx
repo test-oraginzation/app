@@ -8,7 +8,6 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import SearchScreen from '../../home/screens/searchScreen/SearchScreen.tsx';
 import SettingScreen from '../../home/screens/settingScreen/SettingScreen.tsx';
 import FriendsScreen from '../../home/screens/friendsScreen/FriendsScreen.tsx';
-import {Icon} from '../../core/components/icons/iconsComponents.tsx';
 import TabButton from '../components/TabButton.tsx';
 import {TabBarWidget} from '../widgets';
 
@@ -35,7 +34,7 @@ const TabNavigationGroup = () => {
 export const UserNavigationGroup = () => {
   return (
     <Stack.Navigator
-      initialRouteName={RouteKey.ChoosePhoto}
+      initialRouteName={RouteKey.Home}
       screenOptions={{headerShown: false}}>
       <Stack.Screen name={RouteKey.TabBar} component={TabNavigationGroup} />
       <Stack.Screen

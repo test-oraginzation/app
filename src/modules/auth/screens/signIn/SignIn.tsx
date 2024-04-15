@@ -3,32 +3,54 @@ import PrimeryWrapper from '../../../core/components/primeryWrapper/PrimeryWrapp
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import PrimaryInput from '../../../core/components/primaryInput/PrimaryInput.tsx';
 import PrimaryButton from '../../../core/components/primaryButton/PrimaryButton.tsx';
-
+import {signIn} from '../../api';
+import {set} from '../../../core/services/storage.services.ts';
+import {RouteKey, SessionType} from '../../../core/typing/enums';
+import {useNavigation} from '@react-navigation/native';
 const SignIn = () => {
-  const [email, setEmail] = useState('');
+  const navigation = useNavigation();
+
+  const [nickname, setNickname] = useState('');
   const [password, setPassword] = useState('');
   const [hidePassword, setHidePassword] = useState(true);
+  const [passwordError, setPasswordError] = useState('');
   const isPressed = () => {
-    if (email === '' || password === '') {
+    if (nickname === '' || password === '') {
       return true;
     } else {
       return false;
     }
   };
-  const SignInUser = () => {
-
-  }
   const togglePasswordVisibility = () => {
     setHidePassword(!hidePassword);
+  };
+  const saveSession = async (accessToken: string, refreshToken: string) => {
+    await set(SessionType.AccessToken, accessToken);
+    await set(SessionType.RefreshToken, refreshToken);
+  };
+
+  const SignInRequest = async () => {
+    try {
+      const {data} = await signIn({
+        nickname,
+        password,
+      });
+      saveSession(data.accessToken, data.refreshToken);
+    } catch (error) {
+      console.error('Error:', error);
+      {
+        error ? setPasswordError('user not found') : null;
+      }
+    }
   };
   return (
     <PrimeryWrapper>
       <Text style={styles.mainText}>Sign In</Text>
       <Text style={styles.secondaryText}>login to your account</Text>
       <PrimaryInput
-        value={email}
-        onChangeText={setEmail}
-        placeholder={'Email'}
+        value={nickname}
+        onChangeText={setNickname}
+        placeholder={'Nickname'}
         style={{
           marginTop: 24,
           paddingHorizontal: 16,
@@ -65,6 +87,9 @@ const SignIn = () => {
         </TouchableOpacity>
       </View>
       <View style={styles.container}>
+        {passwordError ? (
+          <Text style={styles.errorText}>{passwordError}</Text>
+        ) : null}
         <PrimaryButton
           isDesable={isPressed()}
           style={{
@@ -72,7 +97,7 @@ const SignIn = () => {
           }}
           label={'Next'}
           onPress={() => {
-            SignInUser();
+            SignInRequest();
           }}
         />
       </View>
@@ -100,5 +125,12 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'center',
     marginBottom: 16,
+  },
+  errorText: {
+    textAlign: 'center',
+    color: 'red',
+    fontFamily: 'Poppins-Regular',
+    fontSize: 14,
+    marginBottom: 20,
   },
 });

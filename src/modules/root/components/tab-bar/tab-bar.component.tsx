@@ -1,9 +1,8 @@
 import React from 'react';
 import {ActionButtonAtom, TabBarItemAtom} from './atoms';
-import {Platform, StyleSheet, TouchableOpacity, View} from 'react-native';
+import {Platform, StyleSheet, View} from 'react-native';
 import {tabBarIconsConfig} from '../../nav-bar.config.tsx';
 import {RouteKey} from '../../../core/typing/enums';
-import {Icon} from '../../../core/components/icons/iconsComponents.tsx';
 
 interface TabBarProps {
   routes: string[];

@@ -42,8 +42,3 @@ export const fetchUserProfile = async (): Promise<User> => {
   }
 };
 
-// export const putTest = (name: string) => {
-//   return http.put(`${BASE_URL}users`, {
-//     name,
-//   });
-// };

@@ -4,6 +4,10 @@ export interface IPayloadRegister {
   country: string;
   nickname: string;
 }
+export interface IPayloadSignIn {
+  nickname: string;
+  password: string;
+}
 export interface SessionResp {
   accessToken: string;
   refreshToken: string;
