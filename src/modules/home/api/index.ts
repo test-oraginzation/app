@@ -1,4 +1,4 @@
-import {User} from './interface.ts';
+import {UserProfile} from './interface.ts';
 import axios, {AxiosResponse} from 'axios';
 import {BASE_URL} from '../../../configs/access.config.ts';
 import http from '../../../api/axiosInstance.ts';
@@ -15,7 +15,7 @@ export const finishUpload = () => {
   return http.get(`${BASE_URL}files/finish`);
 };
 
-export const fetchUserProfile = async (): Promise<User> => {
+export const fetchUserProfile = async (): Promise<UserProfile> => {
   try {
     // Отримуємо accessToken з локального сховища
     const accessToken = await AsyncStorage.getItem('accessToken');
@@ -24,21 +24,29 @@ export const fetchUserProfile = async (): Promise<User> => {
       throw new Error('AccessToken не знайдений');
     }
 
-    // Встановлюємо accessToken у заголовках запиту
-    const headers = {
-      Authorization: `Bearer ${accessToken}`,
-    };
-
-    const response: AxiosResponse<User> = await http.get(
+    // Виконуємо запит на отримання профілю користувача
+    const profileResponse: AxiosResponse<UserProfile> = await http.get(
       `${BASE_URL}users/profile`,
-      {headers},
     );
 
-    // Отримали дані успішно, розпарсимо JSON та повернемо їх
-    return response.data;
+    // Отримуємо дані про кількість фоловерів
+    const followersResponse: AxiosResponse<number> = await http.get(
+      `${BASE_URL}follows/followers-count`,
+    );
+
+    // Отримуємо дані про кількість користувачів, яких користувачі стежать
+    const followingResponse: AxiosResponse<number> = await http.get(
+      `${BASE_URL}follows/following-count`,
+    );
+
+    // Об'єднуємо отримані дані та повертаємо
+    return {
+      ...profileResponse.data,
+      followersCount: followersResponse.data,
+      followingCount: followingResponse.data,
+    };
   } catch (error) {
     console.error('Помилка отримання даних з сервера:', error);
     throw error;
   }
 };
-

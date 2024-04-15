@@ -4,6 +4,8 @@ export interface PhotoName {
 export interface PhotoUrl {
   url: string;
 }
-export interface User {
+export interface UserProfile {
   nickname: string;
+  followersCount: number;
+  followingCount: number;
 }

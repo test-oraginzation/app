@@ -5,14 +5,21 @@ import {fetchUserProfile} from '../../api';
 
 interface User {
   nickname: string;
+  followersCount: number;
+  followingCount: number;
 }
 
 const HeaderHome = () => {
   const [user, setUser] = useState<User | null>(null);
+  const [subscribers, setSubscribers] = useState<number | null>(null);
+  const [subscriptions, setSubscriptions] = useState<number | null>(null);
+
   const fetchData = async () => {
     try {
       const userProfile = await fetchUserProfile();
       setUser(userProfile);
+      setSubscribers(userProfile.followersCount);
+      setSubscriptions(userProfile.followingCount);
     } catch (error) {
       console.error('Помилка отримання даних з сервера:', error);
     }
@@ -38,12 +45,20 @@ const HeaderHome = () => {
       </View>
       <View style={stules.miniContainersecond}>
         <View style={stules.textContainer}>
-          <Text style={stules.buttonText}>55</Text>
+          <Text style={stules.buttonText}>
+            {subscribers && (
+              <Text style={stules.secondaryText}>{subscribers}</Text>
+            )}
+          </Text>
           <Text style={stules.smalText}>Subscribers</Text>
         </View>
         <View style={stules.stick} />
         <View style={stules.textContainer}>
-          <Text style={stules.buttonText}>55</Text>
+          <Text style={stules.buttonText}>
+            {subscriptions && (
+              <Text style={stules.secondaryText}>{subscriptions}</Text>
+            )}
+          </Text>
           <Text style={stules.smalText}>Subscriptions</Text>
         </View>
       </View>

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import PrimeryWrapper from '../../../core/components/primeryWrapper/PrimeryWrapper.tsx';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import PrimaryInput from '../../../core/components/primaryInput/PrimaryInput.tsx';
@@ -36,6 +36,7 @@ const SignIn = () => {
         password,
       });
       saveSession(data.accessToken, data.refreshToken);
+      //TODO restart window when user is logged in
     } catch (error) {
       console.error('Error:', error);
       {

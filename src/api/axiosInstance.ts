@@ -12,8 +12,7 @@ instance.interceptors.response.use(
   response => response, // Успішна відповідь без змін
   async error => {
     const originalRequest = error.config;
-    console.log('-------------');
-    console.log('error', error.response.status);
+
     // Перевіряємо, чи статусні код 401 і чи маємо refreshToken у AsyncStorage
     if (error.response.status === 401) {
       originalRequest._retry = true;
@@ -29,7 +28,6 @@ instance.interceptors.response.use(
           });
 
           // Оновлюємо accessToken в AsyncStorage та в об'єкті запиту
-          console.log(response.data.accessToken);
           await set(SessionType.AccessToken, response.data.accessToken);
           originalRequest.headers.Authorization = `Bearer ${response.data.accessToken}`;
 
