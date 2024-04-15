@@ -1,50 +1,43 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import PrimeryWrapper from '../../../core/components/primeryWrapper/PrimeryWrapper.tsx';
-import {Image, Platform, StyleSheet, Text, View} from 'react-native';
+import {Image, StyleSheet, Text, View} from 'react-native';
 import PrimaryButton from '../../../core/components/primaryButton/PrimaryButton.tsx';
 import SecondaryButton from '../../../core/components/secondaryButton/SecondaryButton.tsx';
 import {launchImageLibrary} from 'react-native-image-picker';
-import {get} from '../../../core/services/storage.services.ts';
-import {SessionType} from '../../../core/typing/enums';
 import {finishUpload, getSignedUrl, uploadPhoto} from '../../api';
-import {readFile} from 'react-native-fs';
 
 const ChoosePhoto = () => {
-  const [selectedImage, setSelectedImage] = useState(null);
-
-  const loadImageBase64 = async capturedImageURI => {
-    try {
-      const base64Data = await readFile(capturedImageURI, 'base64');
-      return 'data:image/jpeg;base64,' + base64Data;
-    } catch (error) {
-      console.error('Error converting image to base64:', error);
-    }
-  };
-
-  const handleChoosePhoto = () => {
+  // const [imgUrl, setImgUrl]
+  const openImagePicker = async () => {
+    // Параметри для конфігурації вибору фото
     const options = {
-      mediaType: 'photo',
+      title: 'Виберіть фото',
+      storageOptions: {
+        skipBackup: true,
+        path: 'images',
+      },
     };
-    launchImageLibrary(options, response => {
+
+    launchImageLibrary(options, async (response) => {
       if (response.didCancel) {
-        console.log('User cancelled image picker');
+        console.log('Користувач скасував вибір фото');
       } else if (response.error) {
-        console.log('ImagePicker Error: ', response.error);
-      } else if (response.customButton) {
-        console.log('User tapped custom button: ', response.customButton);
+        console.log('Помилка вибору фото:', response.error);
       } else {
-        setSelectedImage(response.assets[0]);
-        console.log('Selected Image:', response.assets[0].base64);
-        const url = getSignedUrl(response.assets[0].fileName);
-        const image = loadImageBase64(response.assets[0].uri);
-        if (url) {
-          uploadPhoto(image, url);
+        // Отримати підписаний URL за допомогою вашої функції getSignedUrl
+        try {
+          const signedUrl = await getSignedUrl(response.fileName);
+          console.log('Підписаний URL для фото:', signedUrl.data.url);
+          await uploadPhoto(response//TODO треба конвертувати в файл і все заробіт
+           , signedUrl.data.url);
+          const photouser = await finishUpload();
+          console.log(photouser.data.photo);
+        } catch (error) {
+          console.log('Помилка отримання підписаного URL:', error);
         }
-        const updatedUser = finishUpload();
       }
     });
   };
-
   return (
     <PrimeryWrapper>
       <Text style={styles.mainText}>Add a profile photo</Text>
@@ -61,7 +54,7 @@ const ChoosePhoto = () => {
           style={{}}
           label={'Photo library'}
           onPress={() => {
-            handleChoosePhoto();
+            openImagePicker();
           }}
         />
         <SecondaryButton

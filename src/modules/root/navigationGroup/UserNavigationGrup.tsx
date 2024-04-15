@@ -34,7 +34,7 @@ const TabNavigationGroup = () => {
 export const UserNavigationGroup = () => {
   return (
     <Stack.Navigator
-      initialRouteName={RouteKey.Home}
+      initialRouteName={RouteKey.ChoosePhoto}
       screenOptions={{headerShown: false}}>
       <Stack.Screen name={RouteKey.TabBar} component={TabNavigationGroup} />
       <Stack.Screen
