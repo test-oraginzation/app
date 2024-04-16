@@ -28,8 +28,8 @@ const ChoosePhoto = () => {
         try {
           const signedUrl = await getSignedUrl(response.fileName);
           console.log('Підписаний URL для фото:', signedUrl.data.url);
-          await uploadPhoto(response//TODO треба конвертувати в файл і все заробіт
-           , signedUrl.data.url);
+          //TODO в функції нижче потрібно зробити конвертацію в base64 замість response
+          await uploadPhoto(response, signedUrl.data.url);
           const photouser = await finishUpload();
           console.log(photouser.data.photo);
         } catch (error) {

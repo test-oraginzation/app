@@ -1,19 +1,20 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import PrimeryWrapper from '../../../core/components/primeryWrapper/PrimeryWrapper.tsx';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import PrimaryInput from '../../../core/components/primaryInput/PrimaryInput.tsx';
 import PrimaryButton from '../../../core/components/primaryButton/PrimaryButton.tsx';
 import {signIn} from '../../api';
 import {set} from '../../../core/services/storage.services.ts';
-import {RouteKey, SessionType} from '../../../core/typing/enums';
-import {useNavigation} from '@react-navigation/native';
-const SignIn = () => {
-  const navigation = useNavigation();
+import {SessionType} from '../../../core/typing/enums';
+import {useAuthStore} from '../../../../hooks/auth.ts';
 
+const SignIn = () => {
   const [nickname, setNickname] = useState('');
   const [password, setPassword] = useState('');
   const [hidePassword, setHidePassword] = useState(true);
   const [passwordError, setPasswordError] = useState('');
+
+  const {saveSessionZus} = useAuthStore();
   const isPressed = () => {
     if (nickname === '' || password === '') {
       return true;
@@ -27,6 +28,7 @@ const SignIn = () => {
   const saveSession = async (accessToken: string, refreshToken: string) => {
     await set(SessionType.AccessToken, accessToken);
     await set(SessionType.RefreshToken, refreshToken);
+    // saveSessionZus('accessToken new', 'refreshToken new')
   };
 
   const SignInRequest = async () => {
@@ -36,14 +38,16 @@ const SignIn = () => {
         password,
       });
       saveSession(data.accessToken, data.refreshToken);
-      //TODO restart window when user is logged in
+      // TODO: Перезавантажте вікно, коли користувач увійшов в систему
     } catch (error) {
       console.error('Error:', error);
       {
         error ? setPasswordError('user not found') : null;
       }
     }
+    // saveSession('sss', 'ssssddd');
   };
+
   return (
     <PrimeryWrapper>
       <Text style={styles.mainText}>Sign In</Text>

@@ -12,6 +12,7 @@ export enum RouteKey {
   Friends = 'Friends',
   Action = 'Action',
   TabButton = 'TabButton',
+  AddWith = 'AddWith',
 }
 export enum NavGroup {
   Auth = 'Auth',

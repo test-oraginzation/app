@@ -10,6 +10,8 @@ import SettingScreen from '../../home/screens/settingScreen/SettingScreen.tsx';
 import FriendsScreen from '../../home/screens/friendsScreen/FriendsScreen.tsx';
 import TabButton from '../components/TabButton.tsx';
 import {TabBarWidget} from '../widgets';
+import AddWith from '../../home/screens/addWith/AddWith.tsx';
+import GoBack from '../components/GoBack.tsx';
 
 const TabStack = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -34,7 +36,7 @@ const TabNavigationGroup = () => {
 export const UserNavigationGroup = () => {
   return (
     <Stack.Navigator
-      initialRouteName={RouteKey.ChoosePhoto}
+      initialRouteName={RouteKey.Home}
       screenOptions={{headerShown: false}}>
       <Stack.Screen name={RouteKey.TabBar} component={TabNavigationGroup} />
       <Stack.Screen
@@ -45,6 +47,16 @@ export const UserNavigationGroup = () => {
           headerTransparent: true,
           headerTitle: '',
           headerRight: () => <SkipChoosePhoto />,
+        }}
+      />
+      <Stack.Screen
+        name={RouteKey.AddWith}
+        component={AddWith}
+        options={{
+          headerShown: true,
+          headerTransparent: true,
+          headerTitle: 'Add with',
+          headerLeft: () => <GoBack />,
         }}
       />
     </Stack.Navigator>

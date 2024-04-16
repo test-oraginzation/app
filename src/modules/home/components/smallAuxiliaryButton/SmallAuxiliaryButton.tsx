@@ -14,11 +14,12 @@ const SmallAuxiliaryButton = ({style, icon}: ButtonProps) => {
         {
           alignItems: 'center',
           alignSelf: 'center',
-          backgroundColor: '#CEECFD',
+          backgroundColor: 'white',
           borderRadius: 30,
           height: 36,
           justifyContent: 'center',
           width: 36,
+          zIndex: 10,
         },
       ]}>
       <Icon name={icon} size={24} color={'#4E9FFF'} />
