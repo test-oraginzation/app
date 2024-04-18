@@ -20,6 +20,7 @@
     "react-native": "0.73.6",
     "react-native-actions-sheet": "^0.9.3",
     "react-native-actionsheet": "^2.4.2",
+    "react-native-asset": "^2.1.1",
     "react-native-country-codes-picker": "^2.3.5",
     "react-native-fs": "^2.20.0",
     "react-native-gesture-handler": "^2.16.0",

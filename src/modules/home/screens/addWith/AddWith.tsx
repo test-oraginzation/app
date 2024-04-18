@@ -11,13 +11,19 @@ import {
 import SearchButton from '../../components/smallAuxiliaryButton/SmallAuxiliaryButton.tsx';
 import PrimaryInput from '../../../core/components/primaryInput/PrimaryInput.tsx';
 import PrimaryButton from '../../../core/components/primaryButton/PrimaryButton.tsx';
+import DropDownPicker from '../../../core/components/dropDownPicker/DropDownPicker.tsx';
 
 const AddWith = () => {
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
-  const [currency, setCurrency] = useState('');
   const [url, setUrl] = useState('');
   const [description, setDescription] = useState('');
+  const [selectedCurrency, setSelectedCurrency] = useState('');
+
+  const handleCurrencyChange = (value: string) => {
+    setSelectedCurrency(value);
+  };
+
   return (
     <PrimeryWrapper>
       <ScrollView>
@@ -31,8 +37,8 @@ const AddWith = () => {
           </TouchableOpacity>
         </View>
         <View>
-          <View>
-            <Text>Name with</Text>
+          <View style={{marginBottom: 24}}>
+            <Text style={styles.lableMain}>Name with</Text>
             <PrimaryInput
               value={name}
               onChangeText={setName}
@@ -45,26 +51,35 @@ const AddWith = () => {
               }}
             />
           </View>
-          <View>
-            <View>
-              <Text>Price</Text>
+          <View style={styles.wrapperPriceCurrency}>
+            <View style={{marginBottom: 24}}>
+              <Text style={styles.lableMain}>Price</Text>
               <PrimaryInput
                 value={price}
                 onChangeText={setPrice}
                 placeholder={'Price'}
+                style={{
+                  paddingHorizontal: 16,
+                  paddingVertical: 13,
+                  height: 50,
+                  width: 164,
+                }}
               />
             </View>
-            <View>
-              <Text>Currency</Text>
-              <PrimaryInput
-                value={currency}
-                onChangeText={setCurrency}
-                placeholder={'Currency'}
+            <View style={{marginBottom: 24}}>
+              <Text style={styles.lableMain}>Currency</Text>
+              <DropDownPicker
+                items={[
+                  {label: 'USD', value: 'USD'},
+                  {label: 'EUR', value: 'EUR'},
+                  {label: 'UAH', value: 'UAH'},
+                ]}
+                onValueChange={handleCurrencyChange}
               />
             </View>
           </View>
-          <View>
-            <Text>URL</Text>
+          <View style={{marginBottom: 24}}>
+            <Text style={styles.lableMain}>URL</Text>
             <PrimaryInput
               value={url}
               onChangeText={setUrl}
@@ -77,16 +92,22 @@ const AddWith = () => {
               }}
             />
           </View>
-          <View>
-            <Text>Description</Text>
+          <View style={{marginBottom: 24}}>
+            <Text style={styles.lableMain}>Description</Text>
             <PrimaryInput
               value={description}
               onChangeText={setDescription}
               placeholder={'Enten a description'}
+              style={{
+                paddingHorizontal: 16,
+                paddingVertical: 13,
+                width: '100%',
+                height: 100,
+              }}
             />
           </View>
           <View>
-            <Text>Hide wishes from other users</Text>
+            <Text style={styles.lableMain}>Hide wishes from other users</Text>
           </View>
         </View>
         <View style={styles.containerForButton}>
@@ -107,7 +128,7 @@ export default AddWith;
 
 const styles = StyleSheet.create({
   profilePicture: {
-    marginTop: 64,
+    marginTop: 34,
     height: 106,
     width: 106,
     position: 'relative',
@@ -123,5 +144,10 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     fontSize: 16,
     fontFamily: 'Poppins-Regular',
+  },
+  wrapperPriceCurrency: {
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });

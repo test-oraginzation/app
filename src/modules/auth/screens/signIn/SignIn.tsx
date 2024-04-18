@@ -28,7 +28,7 @@ const SignIn = () => {
   const saveSession = async (accessToken: string, refreshToken: string) => {
     await set(SessionType.AccessToken, accessToken);
     await set(SessionType.RefreshToken, refreshToken);
-    // saveSessionZus('accessToken new', 'refreshToken new')
+    saveSessionZus(accessToken, refreshToken);
   };
 
   const SignInRequest = async () => {
@@ -38,14 +38,12 @@ const SignIn = () => {
         password,
       });
       saveSession(data.accessToken, data.refreshToken);
-      // TODO: Перезавантажте вікно, коли користувач увійшов в систему
     } catch (error) {
       console.error('Error:', error);
       {
         error ? setPasswordError('user not found') : null;
       }
     }
-    // saveSession('sss', 'ssssddd');
   };
 
   return (

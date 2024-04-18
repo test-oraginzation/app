@@ -9,5 +9,6 @@ interface AuthState {
 export const useAuthStore = create<AuthState>(set => ({
   accessToken: null,
   refreshToken: null,
-  saveSessionZus: (accessToken, refreshToken) => set({accessToken, refreshToken}),
+  saveSessionZus: (accessToken, refreshToken) =>
+    set({accessToken, refreshToken}),
 }));

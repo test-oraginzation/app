@@ -6,6 +6,7 @@ import PrimeryWrapper from '../../../core/components/primeryWrapper/PrimeryWrapp
 import {registrationReq} from '../../api';
 import {SessionType} from '../../../core/typing/enums';
 import {set} from '../../../core/services/storage.services.ts';
+import {useAuthStore} from '../../../../hooks/auth.ts';
 interface ChooseEmailPassProps {
   navigation: any;
   route: {
@@ -19,6 +20,7 @@ interface ChooseEmailPassProps {
 }
 const ChooseEmailPass: React.FC<ChooseEmailPassProps> = ({route}) => {
   const {country, nickname} = route.params;
+  const {saveSessionZus} = useAuthStore();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -59,6 +61,7 @@ const ChooseEmailPass: React.FC<ChooseEmailPassProps> = ({route}) => {
   const saveSession = async (accessToken: string, refreshToken: string) => {
     await set(SessionType.AccessToken, accessToken);
     await set(SessionType.RefreshToken, refreshToken);
+    saveSessionZus(accessToken, refreshToken);
   };
   const handleNextPress = async () => {
     try {

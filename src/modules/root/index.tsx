@@ -5,13 +5,11 @@ import Auth from './navigationGroup/Auth.tsx';
 import {UserNavigationGroup} from './navigationGroup/UserNavigationGrup.tsx';
 import {get} from '../core/services/storage.services.ts';
 import {SessionType} from '../core/typing/enums';
-import AddWith from "../home/screens/addWith/AddWith.tsx";
-import {useAuthStore} from "../../hooks/auth.ts";
+import {useAuthStore} from '../../hooks/auth.ts';
 
 const Root = () => {
   const [token, setToken] = useState('');
   const {accessToken} = useAuthStore();
-  console.log('accessToken',accessToken)
   const getToken = async () => {
     const existToken: any = await get(SessionType.AccessToken);
     setToken(existToken);
@@ -22,7 +20,7 @@ const Root = () => {
   return (
     <View style={{flex: 1}}>
       <NavigationContainer>
-        {token ? <UserNavigationGroup /> : <Auth />}
+        {accessToken || token ? <UserNavigationGroup /> : <Auth />}
         {/*<UserNavigationGroup />*/}
         {/*<Auth />*/}
         {/*<AddWith />*/}
