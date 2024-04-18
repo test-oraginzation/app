@@ -1,4 +1,4 @@
-import {UserProfile} from './interface.ts';
+import {IPayloadAddWish, UserProfile} from './interface.ts';
 import axios, {AxiosResponse} from 'axios';
 import {BASE_URL} from '../../../configs/access.config.ts';
 import http from '../../../api/axiosInstance.ts';
@@ -49,4 +49,8 @@ export const fetchUserProfile = async (): Promise<UserProfile> => {
     console.error('Помилка отримання даних з сервера:', error);
     throw error;
   }
+};
+
+export const addWishReq = (payload: IPayloadAddWish) => {
+  return http.post(`${BASE_URL}wishes`, payload);
 };

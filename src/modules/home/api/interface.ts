@@ -9,3 +9,12 @@ export interface UserProfile {
   followersCount: number;
   followingCount: number;
 }
+
+export interface IPayloadAddWish {
+  name: string;
+  currency: string;
+  price: number;
+  url: string;
+  description: string;
+  private: boolean;
+}

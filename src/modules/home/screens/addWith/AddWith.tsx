@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import PrimeryWrapper from '../../../core/components/primeryWrapper/PrimeryWrapper.tsx';
 import {
+  Alert,
   Image,
   Platform,
   ScrollView,
@@ -16,6 +17,8 @@ import DropDownPicker from '../../../core/components/dropDownPicker/DropDownPick
 import MultilineTextInput from '../../../core/components/multilineTextInput/MultilineTextInput.tsx';
 import {checkEmptyStrings} from '../../../core/functions';
 import {ToggleButton} from '../../../core/components/toggleButton/ToggleButton.tsx';
+import {addWishReq} from '../../api';
+import {useNavigation} from '@react-navigation/native';
 
 const AddWith = () => {
   const [name, setName] = useState('');
@@ -23,10 +26,34 @@ const AddWith = () => {
   const [url, setUrl] = useState('');
   const [description, setDescription] = useState('');
   const [currency, setCurrency] = useState('');
-  const [toggleState, setToggleState] = useState(false);
+  const [isPrivate, setIsPrivate] = useState(false);
+  const [addWishError, setAddWishError] = useState('');
 
+  const navigation = useNavigation();
+
+  const addWish = async () => {
+    try {
+      const data = await addWishReq({
+        name,
+        currency,
+        price: parseFloat(price),
+        url,
+        description,
+        private: isPrivate,
+      });
+      if (data.status === 201) {
+        navigation.goBack();
+        Alert.alert('віш ліст успішно створено');
+      }
+    } catch (error) {
+      console.error('Error:', error);
+      {
+        error ? setAddWishError('user not found') : null;
+      }
+    }
+  };
   const handleToggle = (isEnabled: boolean) => {
-    setToggleState(isEnabled);
+    setIsPrivate(isEnabled);
   };
 
   const handleCurrencyChange = (value: string) => {
@@ -124,9 +151,25 @@ const AddWith = () => {
           </View>
         </View>
         <View style={styles.containerForButton}>
+          {addWishError ? (
+            <Text
+              style={{
+                color: 'red',
+                textAlign: 'center',
+                marginBottom: 10,
+                fontFamily: 'Poppins-Regular',
+                fontSize: 16,
+                position: 'absolute',
+                bottom: 65,
+              }}>
+              server error
+            </Text>
+          ) : null}
           <PrimaryButton
             label={'Add a wish'}
-            onPress={() => {}}
+            onPress={() => {
+              addWish();
+            }}
             style={{
               marginBottom: 16,
             }}
