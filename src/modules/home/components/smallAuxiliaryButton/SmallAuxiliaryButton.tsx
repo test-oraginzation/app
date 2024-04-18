@@ -3,7 +3,7 @@ import {View, ViewStyle} from 'react-native';
 import {Icon} from '../../../core/components/icons/iconsComponents.tsx';
 interface ButtonProps {
   style?: ViewStyle;
-  icon: string
+  icon: string;
 }
 
 const SmallAuxiliaryButton = ({style, icon}: ButtonProps) => {

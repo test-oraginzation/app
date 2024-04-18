@@ -1,5 +1,11 @@
 import React, {useState} from 'react';
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import {Icon} from '../icons/iconsComponents.tsx';
 
 interface Currency {
@@ -33,7 +39,7 @@ const DropDownPicker: React.FC<DropDownPickerProps> = ({
     <View style={styles.container}>
       <TouchableOpacity style={styles.header} onPress={toggleDropDown}>
         <Text style={styles.headerText}>
-          {selectedItem ? selectedItem.label : 'USD'}
+          {selectedItem ? selectedItem.label : 'Chose currency'}
         </Text>
         <Icon
           size={6}
@@ -43,17 +49,32 @@ const DropDownPicker: React.FC<DropDownPickerProps> = ({
         />
       </TouchableOpacity>
       {isOpen && (
-        <View style={styles.dropDown}>
-          {items.map((item, index) => (
-            <TouchableOpacity
-              key={item.value}
-              style={styles.item}
-              onPress={() => selectItem(item)}>
-              <Text>{item.label}</Text>
-              {index < items.length - 1 && <View style={styles.borderLine} />}
-            </TouchableOpacity>
-          ))}
-        </View>
+        <TouchableWithoutFeedback onPress={() => setIsOpen(false)}>
+          <View
+            style={{
+              flex: 1,
+              borderWidth: 1,
+              height: 2000,
+              width: 2000,
+              position: 'absolute',
+              paddingTop: 300,
+              paddingLeft: 300,
+            }}>
+            <View style={styles.dropDown}>
+              {items.map((item, index) => (
+                <TouchableOpacity
+                  key={item.value}
+                  style={styles.item}
+                  onPress={() => selectItem(item)}>
+                  <Text>{item.label}</Text>
+                  {index < items.length - 1 && (
+                    <View style={styles.borderLine} />
+                  )}
+                </TouchableOpacity>
+              ))}
+            </View>
+          </View>
+        </TouchableWithoutFeedback>
       )}
     </View>
   );
@@ -61,6 +82,7 @@ const DropDownPicker: React.FC<DropDownPickerProps> = ({
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     position: 'relative',
     width: '100%',
   },
@@ -91,7 +113,7 @@ const styles = StyleSheet.create({
     width: 164,
     borderRadius: 10,
     backgroundColor: '#ffffff',
-    zIndex: 2,
+    flex: 1,
   },
   item: {
     padding: 10,

@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import PrimeryWrapper from '../../../core/components/primeryWrapper/PrimeryWrapper.tsx';
 import {
-  Image, Platform,
+  Image,
+  Platform,
   ScrollView,
   StyleSheet,
   Text,
@@ -12,31 +13,39 @@ import SearchButton from '../../components/smallAuxiliaryButton/SmallAuxiliaryBu
 import PrimaryInput from '../../../core/components/primaryInput/PrimaryInput.tsx';
 import PrimaryButton from '../../../core/components/primaryButton/PrimaryButton.tsx';
 import DropDownPicker from '../../../core/components/dropDownPicker/DropDownPicker.tsx';
+import MultilineTextInput from '../../../core/components/multilineTextInput/MultilineTextInput.tsx';
+import {checkEmptyStrings} from '../../../core/functions';
+import {ToggleButton} from '../../../core/components/toggleButton/ToggleButton.tsx';
 
 const AddWith = () => {
   const [name, setName] = useState('');
   const [price, setPrice] = useState('');
   const [url, setUrl] = useState('');
   const [description, setDescription] = useState('');
-  const [selectedCurrency, setSelectedCurrency] = useState('');
+  const [currency, setCurrency] = useState('');
+  const [toggleState, setToggleState] = useState(false);
+
+  const handleToggle = (isEnabled: boolean) => {
+    setToggleState(isEnabled);
+  };
 
   const handleCurrencyChange = (value: string) => {
-    setSelectedCurrency(value);
+    setCurrency(value);
   };
 
   return (
     <PrimeryWrapper>
       <ScrollView>
-        <View>
-          <TouchableOpacity>
+        <View style={styles.photoContainer}>
+          <TouchableOpacity style={styles.photoBtnContainer}>
             <Image
               source={require('../../../../assets/images/addwith.png')}
               style={styles.profilePicture}
             />
-            <SearchButton icon={'camera'} />
+            <SearchButton icon={'camera'} style={styles.iconBtn} />
           </TouchableOpacity>
         </View>
-        <View>
+        <View style={{marginBottom: 40}}>
           <View style={{marginBottom: 24}}>
             <Text style={styles.lableMain}>Name with</Text>
             <PrimaryInput
@@ -55,6 +64,7 @@ const AddWith = () => {
             <View style={{marginBottom: 24}}>
               <Text style={styles.lableMain}>Price</Text>
               <PrimaryInput
+                keyboardType={'numeric'}
                 value={price}
                 onChangeText={setPrice}
                 placeholder={'Price'}
@@ -94,20 +104,23 @@ const AddWith = () => {
           </View>
           <View style={{marginBottom: 24}}>
             <Text style={styles.lableMain}>Description</Text>
-            <PrimaryInput
+            <MultilineTextInput
               value={description}
               onChangeText={setDescription}
               placeholder={'Enten a description'}
               style={{
                 paddingHorizontal: 16,
-                paddingVertical: 13,
+                paddingTop: 13,
                 width: '100%',
                 height: 100,
               }}
             />
           </View>
           <View>
-            <Text style={styles.lableMain}>Hide wishes from other users</Text>
+            <ToggleButton
+              text={'Hide wishes from other users'}
+              onToggle={handleToggle}
+            />
           </View>
         </View>
         <View style={styles.containerForButton}>
@@ -117,6 +130,14 @@ const AddWith = () => {
             style={{
               marginBottom: 16,
             }}
+            isDesable={checkEmptyStrings(
+              name,
+              price,
+              url,
+              price,
+              currency,
+              description,
+            )}
           />
         </View>
       </ScrollView>
@@ -127,11 +148,24 @@ const AddWith = () => {
 export default AddWith;
 
 const styles = StyleSheet.create({
+  photoContainer: {
+    flex: 1,
+    marginTop: Platform.OS === 'android' ? 65 : 34,
+    marginBottom: 24,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  photoBtnContainer: {
+    width: 106,
+  },
+  iconBtn: {
+    position: 'absolute',
+    bottom: 0,
+    right: 0,
+  },
   profilePicture: {
-    marginTop: 34,
     height: 106,
     width: 106,
-    position: 'relative',
   },
   containerForButton: {
     flex: 1,

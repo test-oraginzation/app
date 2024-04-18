@@ -7,6 +7,7 @@ import {signIn} from '../../api';
 import {set} from '../../../core/services/storage.services.ts';
 import {SessionType} from '../../../core/typing/enums';
 import {useAuthStore} from '../../../../hooks/auth.ts';
+import {checkEmptyStrings} from '../../../core/functions';
 
 const SignIn = () => {
   const [nickname, setNickname] = useState('');
@@ -15,13 +16,6 @@ const SignIn = () => {
   const [passwordError, setPasswordError] = useState('');
 
   const {saveSessionZus} = useAuthStore();
-  const isPressed = () => {
-    if (nickname === '' || password === '') {
-      return true;
-    } else {
-      return false;
-    }
-  };
   const togglePasswordVisibility = () => {
     setHidePassword(!hidePassword);
   };
@@ -94,7 +88,7 @@ const SignIn = () => {
           <Text style={styles.errorText}>{passwordError}</Text>
         ) : null}
         <PrimaryButton
-          isDesable={isPressed()}
+          isDesable={checkEmptyStrings(password, nickname)}
           style={{
             marginBottom: 16,
           }}

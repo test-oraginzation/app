@@ -1,28 +1,32 @@
 import React from 'react';
-import {KeyboardTypeOptions, TextInput, TextStyle} from 'react-native';
+import {TextInput, TextStyle} from 'react-native';
 
 interface InputProps {
   value: string;
   onChangeText: (text: string) => void;
   placeholder: string;
+  maxLength?: number;
   style?: TextStyle;
   secureTextEntry?: boolean;
-  keyboardType?: KeyboardTypeOptions;
+  numberOfLines?: number;
 }
-const PrimaryInput = ({
+const MultilineTextInput = ({
   value,
   onChangeText,
   placeholder,
   style,
   secureTextEntry,
-  keyboardType,
+  numberOfLines,
+  maxLength,
 }: InputProps) => {
   return (
     <TextInput
-      keyboardType={keyboardType}
       value={value}
       onChangeText={onChangeText}
       placeholder={placeholder}
+      multiline
+      numberOfLines={numberOfLines}
+      maxLength={maxLength}
       secureTextEntry={secureTextEntry}
       style={[
         {
@@ -39,4 +43,4 @@ const PrimaryInput = ({
   );
 };
 
-export default PrimaryInput;
+export default MultilineTextInput;
