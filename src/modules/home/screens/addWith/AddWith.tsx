@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import PrimeryWrapper from '../../../core/components/primeryWrapper/PrimeryWrapper.tsx';
 import {
-  Image,
+  Image, Platform,
   ScrollView,
   StyleSheet,
   Text,
@@ -149,5 +149,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    position: 'relative',
+    zIndex: 12,
+    elevation: Platform.OS === 'android' ? 50 : 0,
   },
 });

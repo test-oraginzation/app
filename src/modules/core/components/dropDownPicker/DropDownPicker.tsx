@@ -33,18 +33,24 @@ const DropDownPicker: React.FC<DropDownPickerProps> = ({
     <View style={styles.container}>
       <TouchableOpacity style={styles.header} onPress={toggleDropDown}>
         <Text style={styles.headerText}>
-          {selectedItem ? selectedItem.label : 'Select currency'}
+          {selectedItem ? selectedItem.label : 'USD'}
         </Text>
-        <Icon size={10} name={'arow'} color={'black'} />
+        <Icon
+          size={6}
+          name={'arow'}
+          color={'black'}
+          style={isOpen && styles.rotate}
+        />
       </TouchableOpacity>
       {isOpen && (
         <View style={styles.dropDown}>
-          {items.map(item => (
+          {items.map((item, index) => (
             <TouchableOpacity
               key={item.value}
               style={styles.item}
               onPress={() => selectItem(item)}>
               <Text>{item.label}</Text>
+              {index < items.length - 1 && <View style={styles.borderLine} />}
             </TouchableOpacity>
           ))}
         </View>
@@ -74,25 +80,29 @@ const styles = StyleSheet.create({
   },
   arrowIcon: {
     width: 20,
-    height: 20,
+    height: 2,
   },
   rotate: {
     transform: [{rotate: '90deg'}],
   },
   dropDown: {
     position: 'absolute',
-    top: '100%',
-    width: '100%',
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 5,
-    backgroundColor: '#fff',
-    zIndex: 100,
+    marginTop: 50,
+    width: 164,
+    borderRadius: 10,
+    backgroundColor: '#ffffff',
+    zIndex: 2,
   },
   item: {
     padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
+  },
+  borderLine: {
+    width: 164,
+    height: 1,
+    backgroundColor: '#dadada',
+    position: 'absolute',
+    bottom: 0,
+    zIndex: 1, // Ensure the line is above the item
   },
 });
 
