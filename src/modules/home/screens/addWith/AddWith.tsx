@@ -112,6 +112,7 @@ const AddWith = () => {
                   {label: 'UAH', value: 'UAH'},
                 ]}
                 onValueChange={handleCurrencyChange}
+                //TODO Зробити щоб модалка закривалась при натискані на екран (розтянути поле)
               />
             </View>
           </View>

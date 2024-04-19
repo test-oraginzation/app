@@ -1,4 +1,4 @@
-import {IPayloadAddWish, UserProfile} from './interface.ts';
+import {IPayloadAddWish, UserProfile, WishData} from './interface.ts';
 import axios, {AxiosResponse} from 'axios';
 import {BASE_URL} from '../../../configs/access.config.ts';
 import http from '../../../api/axiosInstance.ts';
@@ -53,4 +53,9 @@ export const fetchUserProfile = async (): Promise<UserProfile> => {
 
 export const addWishReq = (payload: IPayloadAddWish) => {
   return http.post(`${BASE_URL}wishes`, payload);
+};
+
+export const wishesResponse = async (): Promise<WishData[]> => {
+  const response = await http.get(`${BASE_URL}wishes`);
+  return response.data as WishData[];
 };

@@ -18,3 +18,12 @@ export interface IPayloadAddWish {
   description: string;
   private: boolean;
 }
+
+export interface WishData {
+  name: string;
+  currency: string;
+  price: number;
+  url: string;
+  description: string;
+  private: boolean;
+}

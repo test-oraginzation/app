@@ -53,10 +53,10 @@ const DropDownPicker: React.FC<DropDownPickerProps> = ({
           <View
             style={{
               flex: 1,
+              position: 'absolute',
               borderWidth: 1,
               height: 2000,
               width: 2000,
-              position: 'absolute',
               paddingTop: 300,
               paddingLeft: 300,
             }}>

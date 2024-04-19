@@ -5,8 +5,8 @@ import PrimaryInput from '../../../core/components/primaryInput/PrimaryInput.tsx
 import PrimeryWrapper from '../../../core/components/primeryWrapper/PrimeryWrapper.tsx';
 import {registrationReq} from '../../api';
 import {SessionType} from '../../../core/typing/enums';
-import {set} from '../../../core/services/storage.services.ts';
-import {useAuthStore} from '../../../../hooks/auth.ts';
+import {setAsyncStorage} from '../../../core/services/storage.services.ts';
+import {useToken} from '../../../../hooks/auth.ts';
 interface ChooseEmailPassProps {
   navigation: any;
   route: {
@@ -20,7 +20,7 @@ interface ChooseEmailPassProps {
 }
 const ChooseEmailPass: React.FC<ChooseEmailPassProps> = ({route}) => {
   const {country, nickname} = route.params;
-  const {saveSessionZus} = useAuthStore();
+  const {setSessionZus} = useToken();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -59,9 +59,9 @@ const ChooseEmailPass: React.FC<ChooseEmailPassProps> = ({route}) => {
   };
 
   const saveSession = async (accessToken: string, refreshToken: string) => {
-    await set(SessionType.AccessToken, accessToken);
-    await set(SessionType.RefreshToken, refreshToken);
-    saveSessionZus(accessToken, refreshToken);
+    await setAsyncStorage(SessionType.AccessToken, accessToken);
+    await setAsyncStorage(SessionType.RefreshToken, refreshToken);
+    setSessionZus(accessToken, refreshToken);
   };
   const handleNextPress = async () => {
     try {

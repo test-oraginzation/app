@@ -4,9 +4,9 @@ import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import PrimaryInput from '../../../core/components/primaryInput/PrimaryInput.tsx';
 import PrimaryButton from '../../../core/components/primaryButton/PrimaryButton.tsx';
 import {signIn} from '../../api';
-import {set} from '../../../core/services/storage.services.ts';
+import {setAsyncStorage} from '../../../core/services/storage.services.ts';
 import {SessionType} from '../../../core/typing/enums';
-import {useAuthStore} from '../../../../hooks/auth.ts';
+import {useToken} from '../../../../hooks/auth.ts';
 import {checkEmptyStrings} from '../../../core/functions';
 
 const SignIn = () => {
@@ -15,14 +15,12 @@ const SignIn = () => {
   const [hidePassword, setHidePassword] = useState(true);
   const [passwordError, setPasswordError] = useState('');
 
-  const {saveSessionZus} = useAuthStore();
+  const {setSessionZus} = useToken();
   const togglePasswordVisibility = () => {
     setHidePassword(!hidePassword);
   };
   const saveSession = async (accessToken: string, refreshToken: string) => {
-    await set(SessionType.AccessToken, accessToken);
-    await set(SessionType.RefreshToken, refreshToken);
-    saveSessionZus(accessToken, refreshToken);
+    setSessionZus(accessToken, refreshToken);
   };
 
   const SignInRequest = async () => {
