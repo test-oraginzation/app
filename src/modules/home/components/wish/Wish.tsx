@@ -3,7 +3,7 @@ import {Image, StyleSheet, Text, View} from 'react-native';
 import HomePageMainContentEmpty from '../homePageMainContentEmpty/HomePageMainContentEmpty.tsx';
 import {Icon} from '../../../core/components/icons/iconsComponents.tsx';
 import {wishesResponse} from '../../api';
-import {WishData} from "../../api/interface.ts";
+import {WishData} from '../../api/interface.ts';
 
 const Wish = () => {
   const [wishes, setWishes] = useState<WishData[]>([]);

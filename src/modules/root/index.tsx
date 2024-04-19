@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import Auth from './navigationGroup/Auth.tsx';
@@ -6,7 +6,6 @@ import {UserNavigationGroup} from './navigationGroup/UserNavigationGrup.tsx';
 import {useToken} from '../../hooks/auth.ts';
 
 const Root = () => {
-  const [token, setToken] = useState('');
   const {getSessionZus, accessToken} = useToken();
 
   useEffect(() => {
