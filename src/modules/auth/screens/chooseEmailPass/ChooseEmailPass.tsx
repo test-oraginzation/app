@@ -4,9 +4,7 @@ import PrimaryButton from '../../../core/components/primaryButton/PrimaryButton.
 import PrimaryInput from '../../../core/components/primaryInput/PrimaryInput.tsx';
 import PrimeryWrapper from '../../../core/components/primeryWrapper/PrimeryWrapper.tsx';
 import {registrationReq} from '../../api';
-import {SessionType} from '../../../core/typing/enums';
-import {setAsyncStorage} from '../../../core/services/storage.services.ts';
-import {useToken} from '../../../../hooks/useSession.store.ts';
+import {useSession} from '../../../../hooks/useSession.ts';
 interface ChooseEmailPassProps {
   navigation: any;
   route: {
@@ -20,7 +18,7 @@ interface ChooseEmailPassProps {
 }
 const ChooseEmailPass: React.FC<ChooseEmailPassProps> = ({route}) => {
   const {country, nickname} = route.params;
-  const {setSessionZus} = useToken();
+  const {setSessionTokens} = useSession();
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -59,7 +57,7 @@ const ChooseEmailPass: React.FC<ChooseEmailPassProps> = ({route}) => {
   };
 
   const saveSession = async (accessToken: string, refreshToken: string) => {
-    setSessionZus(accessToken, refreshToken);
+    setSessionTokens(accessToken, refreshToken);
   };
   const handleNextPress = async () => {
     try {

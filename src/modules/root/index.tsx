@@ -10,7 +10,7 @@ const Root = () => {
 
   useEffect(() => {
     getTokens();
-  }, []);
+  }, [getTokens]);
   return (
     <View style={{flex: 1}}>
       <NavigationContainer>

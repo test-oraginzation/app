@@ -26,5 +26,5 @@ export interface WishData {
   url: string;
   description: string;
   private: boolean;
-  // createData: Date;
+  createdDate: string;
 }
