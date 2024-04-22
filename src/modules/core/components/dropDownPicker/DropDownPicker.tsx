@@ -49,30 +49,19 @@ const DropDownPicker: React.FC<DropDownPickerProps> = ({
         />
       </TouchableOpacity>
       {isOpen && (
-        <TouchableWithoutFeedback onPress={() => setIsOpen(false)}>
-          <View
-            style={{
-              flex: 1,
-              position: 'absolute',
-              borderWidth: 1,
-              height: 2000,
-              width: 2000,
-              paddingTop: 300,
-              paddingLeft: 300,
-            }}>
-            <View style={styles.dropDown}>
-              {items.map((item, index) => (
-                <TouchableOpacity
-                  key={item.value}
-                  style={styles.item}
-                  onPress={() => selectItem(item)}>
-                  <Text>{item.label}</Text>
-                  {index < items.length - 1 && (
-                    <View style={styles.borderLine} />
-                  )}
-                </TouchableOpacity>
-              ))}
-            </View>
+        <TouchableWithoutFeedback
+          style={styles.dropDownContainer}
+          onPress={() => setIsOpen(false)}>
+          <View style={styles.dropDown}>
+            {items.map((item, index) => (
+              <TouchableOpacity
+                key={item.value}
+                style={styles.item}
+                onPress={() => selectItem(item)}>
+                <Text>{item.label}</Text>
+                {index < items.length - 1 && <View style={styles.borderLine} />}
+              </TouchableOpacity>
+            ))}
           </View>
         </TouchableWithoutFeedback>
       )}
@@ -107,13 +96,24 @@ const styles = StyleSheet.create({
   rotate: {
     transform: [{rotate: '90deg'}],
   },
+  dropDownContainer: {
+    flex: 1,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+  },
   dropDown: {
     position: 'absolute',
     marginTop: 50,
     width: 164,
     borderRadius: 10,
     backgroundColor: '#ffffff',
-    flex: 1,
+    shadowColor: 'rgba(23,23,23,0.67)',
+    shadowOffset: {width: -2, height: 4},
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
   },
   item: {
     padding: 10,
@@ -121,10 +121,10 @@ const styles = StyleSheet.create({
   borderLine: {
     width: 164,
     height: 1,
-    backgroundColor: '#dadada',
+    backgroundColor: 'rgba(218,218,218,0.6)',
     position: 'absolute',
     bottom: 0,
-    zIndex: 1, // Ensure the line is above the item
+    zIndex: 1,
   },
 });
 

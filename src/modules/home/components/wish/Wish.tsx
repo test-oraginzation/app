@@ -67,17 +67,18 @@ const styles = StyleSheet.create({
     color: '#4E9FFF',
     fontSize: 14,
     fontFamily: 'Poppins-Medium',
+    paddingHorizontal: 12,
   },
   dateContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-between',
     marginBottom: 16,
     marginTop: 24,
   },
   line: {
-    width: 100,
+    width: '35%',
     height: 2,
-    backgroundColor: 'black',
+    backgroundColor: '#CEDAE6',
   },
 });
