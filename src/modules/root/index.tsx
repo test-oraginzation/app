@@ -3,13 +3,13 @@ import {View} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
 import Auth from './navigationGroup/Auth.tsx';
 import {UserNavigationGroup} from './navigationGroup/UserNavigationGrup.tsx';
-import {useToken} from '../../hooks/auth.ts';
+import {useSession} from '../../hooks/useSession.ts';
 
 const Root = () => {
-  const {getSessionZus, accessToken} = useToken();
+  const {getTokens, accessToken} = useSession();
 
   useEffect(() => {
-    getSessionZus();
+    getTokens();
   }, []);
   return (
     <View style={{flex: 1}}>

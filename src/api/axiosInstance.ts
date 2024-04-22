@@ -1,7 +1,10 @@
 import axios from 'axios';
 import {BASE_URL} from '../configs/access.config.ts';
 import {SessionType} from '../modules/core/typing/enums';
-import {getAsyncStorage, setAsyncStorage} from '../modules/core/services/storage.services.ts';
+import {
+  getAsyncStorage,
+  setAsyncStorage,
+} from '../modules/core/services/storage.services.ts';
 
 const instance = axios.create({
   baseURL: `${BASE_URL}`,
@@ -19,7 +22,10 @@ instance.interceptors.response.use(
           const response = await axios.get(`${BASE_URL}auth/refresh`, {
             headers: {Authorization: `Bearer ${refreshToken}`},
           });
-          await setAsyncStorage(SessionType.AccessToken, response.data.accessToken);
+          await setAsyncStorage(
+            SessionType.AccessToken,
+            response.data.accessToken,
+          );
           originalRequest.headers.Authorization = `Bearer ${response.data.accessToken}`;
           return instance(originalRequest);
         } catch (refreshError) {

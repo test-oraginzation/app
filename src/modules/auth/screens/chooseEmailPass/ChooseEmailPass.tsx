@@ -6,7 +6,7 @@ import PrimeryWrapper from '../../../core/components/primeryWrapper/PrimeryWrapp
 import {registrationReq} from '../../api';
 import {SessionType} from '../../../core/typing/enums';
 import {setAsyncStorage} from '../../../core/services/storage.services.ts';
-import {useToken} from '../../../../hooks/auth.ts';
+import {useToken} from '../../../../hooks/useSession.store.ts';
 interface ChooseEmailPassProps {
   navigation: any;
   route: {
@@ -59,8 +59,6 @@ const ChooseEmailPass: React.FC<ChooseEmailPassProps> = ({route}) => {
   };
 
   const saveSession = async (accessToken: string, refreshToken: string) => {
-    await setAsyncStorage(SessionType.AccessToken, accessToken);
-    await setAsyncStorage(SessionType.RefreshToken, refreshToken);
     setSessionZus(accessToken, refreshToken);
   };
   const handleNextPress = async () => {

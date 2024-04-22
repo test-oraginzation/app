@@ -1,5 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {
+  Image,
+  SafeAreaView,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import HomePageMainContentEmpty from '../homePageMainContentEmpty/HomePageMainContentEmpty.tsx';
 import {Icon} from '../../../core/components/icons/iconsComponents.tsx';
 import {wishesResponse} from '../../api';
@@ -7,69 +14,69 @@ import {WishData} from '../../api/interface.ts';
 
 const Wish = () => {
   const [wishes, setWishes] = useState<WishData[]>([]);
+  const fetchData = async () => {
+    try {
+      const wishesData = await wishesResponse();
+      setWishes(wishesData);
+    } catch (error) {
+      console.log('error', error);
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const wishesData = await wishesResponse();
-        setWishes(wishesData); // Set the wishes array received from the API
-      } catch (error) {
-        console.log('error', error);
-      }
-    };
-    //TODO доробити
     fetchData();
   }, []);
 
   return (
-    <View style={styles.cards}>
-      {wishes.length === 0 ? (
-        <HomePageMainContentEmpty />
-      ) : (
-        wishes.map((wish, index) => (
-          <View style={styles.card} key={index}>
-            <Image
-              source={require('../../../../assets/images/testphoto.png')}
-              style={styles.img}
-            />
-            <View style={styles.textContainer}>
-              <Text style={styles.mainText}>{wish.name}</Text>{' '}
-              <Text style={styles.secondaryText}>{wish.price} USD</Text>{' '}
-              <Text style={styles.linkText}>{wish.link}</Text>{' '}
-            </View>
-            <Icon
-              name={'dots'}
-              style={{
-                position: 'absolute',
-                top: 12,
-                left: 105,
-              }}
-              size={16}
-              onPress={() => {}}
-            />
-            <Icon
-              name={'copy-icon'}
-              size={22}
-              color={'#4E9FFF'}
-              onPress={() => {}}
-              style={{
-                transform: [{scaleX: -1}],
-                position: 'absolute',
-                bottom: 12,
-                left: 103,
-              }}
-            />
-          </View>
-        ))
-      )}
-    </View>
+    <ScrollView showsVerticalScrollIndicator={false}>
+      <View style={styles.cards}>
+        {wishes.length === 0 ? (
+          <HomePageMainContentEmpty />
+        ) : (
+          wishes
+            .slice()
+            .reverse()
+            .map((wish, index) => (
+              <View style={styles.card} key={index}>
+                <Image
+                  source={require('../../../../assets/images/testphoto.png')}
+                  style={styles.img}
+                />
+                <View style={styles.textContainer}>
+                  <Text style={styles.mainText}>{wish.name}</Text>
+                  <Text style={styles.secondaryText}>{wish.price} USD</Text>
+                  <Text style={styles.linkText}>{wish.url}</Text>
+                  {/*<Text>{wish.d}</Text>*/}
+                </View>
+                <View style={styles.iconContainer}>
+                  <Icon name={'dots'} size={16} onPress={() => {}} />
+                  <Icon
+                    name={'copy-icon'}
+                    size={20}
+                    color={'#4E9FFF'}
+                    onPress={() => {}}
+                    style={{
+                      position: 'absolute',
+                      right: -2,
+                      top: 70,
+                      transform: [{scaleX: -1}],
+                    }}
+                  />
+                </View>
+              </View>
+            ))
+        )}
+      </View>
+    </ScrollView>
   );
 };
 
 export default Wish;
 
 const styles = StyleSheet.create({
-  cards: {},
+  cards: {
+    marginTop: 8,
+  },
   card: {
     height: 112,
     backgroundColor: 'white',
@@ -100,5 +107,11 @@ const styles = StyleSheet.create({
     fontFamily: 'Poppins-Regular',
     fontSize: 12,
     marginTop: 24,
+  },
+  iconContainer: {
+    position: 'absolute',
+    top: 12,
+    right: 12,
+    flexDirection: 'row',
   },
 });

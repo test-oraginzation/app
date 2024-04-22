@@ -1,15 +1,14 @@
-import React, {useCallback, useState} from 'react';
+import React from 'react';
 import PrimeryWrapper from '../../../core/components/primeryWrapper/PrimeryWrapper.tsx';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import PrimaryButton from '../../../core/components/primaryButton/PrimaryButton.tsx';
 import SecondaryButton from '../../../core/components/secondaryButton/SecondaryButton.tsx';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {finishUpload, getSignedUrl, uploadPhoto} from '../../api';
+import {readFile} from 'react-native-fs';
 
 const ChoosePhoto = () => {
-  // const [imgUrl, setImgUrl]
   const openImagePicker = async () => {
-    // Параметри для конфігурації вибору фото
     const options = {
       title: 'Виберіть фото',
       storageOptions: {
@@ -24,12 +23,16 @@ const ChoosePhoto = () => {
       } else if (response.error) {
         console.log('Помилка вибору фото:', response.error);
       } else {
-        // Отримати підписаний URL за допомогою вашої функції getSignedUrl
         try {
-          const signedUrl = await getSignedUrl(response.fileName);
+          const signedUrl = await getSignedUrl(response.assets[0].fileName);
+          console.log('response.fileName:', response.assets[0].fileName);
           console.log('Підписаний URL для фото:', signedUrl.data.url);
-          //TODO в функції нижче потрібно зробити конвертацію в base64 замість response
-          await uploadPhoto(response, signedUrl.data.url);
+          console.log('response.assets[0].uri', response.assets[0].uri);
+          //TODO AAAAAAAAA
+          await uploadPhoto(
+            signedUrl.data.url,
+            loadImageBase64(response.assets[0].uri),
+          );
           const photouser = await finishUpload();
           console.log(photouser.data.photo);
         } catch (error) {
@@ -37,6 +40,15 @@ const ChoosePhoto = () => {
         }
       }
     });
+  };
+  //конвертація
+  const loadImageBase64 = async (capturedImageURI) => {
+    try {
+      const base64Data = await readFile(capturedImageURI, 'base64');
+      return 'data:image/jpeg;base64,' + base64Data;
+    } catch (error) {
+      console.error('Error converting image to base64:', error);
+    }
   };
   return (
     <PrimeryWrapper>

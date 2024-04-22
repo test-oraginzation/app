@@ -29,37 +29,39 @@ const HeaderHome = () => {
   }, []);
 
   return (
-    <View style={stules.headerHome}>
-      <View style={stules.miniContainerfirst}>
+    <View style={styles.headerHome}>
+      <View style={styles.miniContainerfirst}>
         <View style={{flex: 1, flexDirection: 'row'}}>
           <Image
             source={require('../../../../assets/images/auth.png')}
-            style={stules.profilePicture}
+            style={styles.profilePicture}
           />
           <View>
-            <Text style={stules.mainText}>Good morning</Text>
-            {user && <Text style={stules.secondaryText}>{user.nickname}</Text>}
+            <Text style={styles.mainText}>Good morning</Text>
+            {user && <Text style={styles.secondaryText}>{user.nickname}</Text>}
           </View>
         </View>
         <SearchButton onPress={() => {}} style={{}} />
       </View>
-      <View style={stules.miniContainersecond}>
-        <View style={stules.textContainer}>
-          <Text style={stules.buttonText}>
+      <View style={styles.miniContainersecond}>
+        <View style={styles.textContainer}>
+          <Text style={styles.buttonText}>
             {subscribers && (
-              <Text style={stules.secondaryText}>{subscribers}</Text>
+              <Text style={styles.secondaryText}>{subscribers}</Text>
             )}
           </Text>
-          <Text style={stules.smalText}>Subscribers</Text>
+          <Text style={styles.smalText}>Subscribers</Text>
         </View>
-        <View style={stules.stick} />
-        <View style={stules.textContainer}>
-          <Text style={stules.buttonText}>
+        <View style={styles.stickContainer}>
+          <View style={styles.stick} />
+        </View>
+        <View style={styles.textContainer}>
+          <Text style={styles.buttonText}>
             {subscriptions && (
-              <Text style={stules.secondaryText}>{subscriptions}</Text>
+              <Text style={styles.secondaryText}>{subscriptions}</Text>
             )}
           </Text>
-          <Text style={stules.smalText}>Subscriptions</Text>
+          <Text style={styles.smalText}>Subscriptions</Text>
         </View>
       </View>
     </View>
@@ -68,7 +70,7 @@ const HeaderHome = () => {
 
 export default HeaderHome;
 
-const stules = StyleSheet.create({
+const styles = StyleSheet.create({
   mainText: {
     fontFamily: 'Poppins-Bold',
     fontSize: 26,
@@ -116,12 +118,20 @@ const stules = StyleSheet.create({
     color: 'black',
   },
   stick: {
+    position: 'relative',
     height: 30,
     width: 1,
     backgroundColor: 'black',
   },
+  stickContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '33%',
+  },
   textContainer: {
     alignItems: 'center',
     justifyContent: 'center',
+    width: '33%',
+    marginHorizontal: 20,
   },
 });

@@ -8,9 +8,8 @@ export const getSignedUrl = async (photoName: string) => {
   return await http.get(`${BASE_URL}users/upload-photo?name=${photoName}`);
 };
 export const uploadPhoto = async (file: any, url: string) => {
-  return await axios.put(url, file);
+  return await axios.put(file, url);
 };
-
 export const finishUpload = async () => {
   return await http.get(`${BASE_URL}users/finish-upload`);
 };

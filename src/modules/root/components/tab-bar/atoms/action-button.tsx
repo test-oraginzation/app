@@ -4,7 +4,6 @@ import {Icon} from '../../../../core/components/icons/iconsComponents.tsx';
 import {ButtonIcon} from '../../../../core/components/buttonIcon/ButtonIcon.tsx';
 import ActionSheet from 'react-native-actions-sheet';
 import {BottomMenu} from '../../actionBottomMenu/BottomMenu.tsx';
-import PrimaryButton from '../../../../core/components/primaryButton/PrimaryButton.tsx';
 
 export const ActionButtonAtom = () => {
   const actionSheetRef = React.useRef<ActionSheet>(null);
@@ -44,6 +43,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 60,
+    marginBottom: 65,
+    shadowColor: '#171717',
+    shadowOffset: {width: -2, height: 4},
+    shadowOpacity: 0.2,
+    shadowRadius: 3,
   },
 });
