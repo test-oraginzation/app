@@ -1,5 +1,5 @@
-function getMonthAbbreviation(month) {
-  const months = [
+function getMonthAbbreviation(month: number): string {
+  const months: string[] = [
     'Jan',
     'Feb',
     'Mar',
@@ -16,10 +16,10 @@ function getMonthAbbreviation(month) {
   return months[month];
 }
 
-export function formatDate(dateString) {
-  const date = new Date(dateString);
-  const day = date.getDate();
-  const monthAbbreviation = getMonthAbbreviation(date.getMonth());
-  const year = date.getFullYear();
+export function formatDate(dateString: string): string {
+  const date: Date = new Date(dateString);
+  const day: number = date.getDate();
+  const monthAbbreviation: string = getMonthAbbreviation(date.getMonth());
+  const year: number = date.getFullYear();
   return `${day} ${monthAbbreviation} ${year}`;
 }

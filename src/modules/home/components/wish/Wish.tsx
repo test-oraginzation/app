@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {Image, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import HomePageMainContentEmpty from '../homePageMainContentEmpty/HomePageMainContentEmpty.tsx';
-import {Icon} from '../../../core/components/icons/iconsComponents.tsx';
 import {wishesResponse} from '../../api';
 import {WishData} from '../../api/interface.ts';
 import {formatDate} from './formatDate.ts';
+import {WishCard} from './wishCard/WishCard.tsx';
 
 const Wish = () => {
   const [wishes, setWishes] = useState<WishData[]>([]);
@@ -21,7 +21,7 @@ const Wish = () => {
   }, []);
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
-      <View style={styles.cards}>
+      <View>
         {wishes.length === 0 ? (
           <HomePageMainContentEmpty />
         ) : (
@@ -46,32 +46,12 @@ const Wish = () => {
                     <View style={styles.line} />
                   </View>
                 )}
-                <View style={styles.card}>
-                  <Image
-                    source={require('../../../../assets/images/testphoto.png')}
-                    style={styles.img}
-                  />
-                  <View style={styles.textContainer}>
-                    <Text style={styles.mainText}>{wish.name}</Text>
-                    <Text style={styles.secondaryText}>{wish.price} USD</Text>
-                    <Text style={styles.linkText}>{wish.url}</Text>
-                  </View>
-                  <View style={styles.iconContainer}>
-                    <Icon name={'dots'} size={16} onPress={() => {}} />
-                    <Icon
-                      name={'copy-icon'}
-                      size={20}
-                      color={'#4E9FFF'}
-                      onPress={() => {}}
-                      style={{
-                        position: 'absolute',
-                        right: -2,
-                        top: 70,
-                        transform: [{scaleX: -1}],
-                      }}
-                    />
-                  </View>
-                </View>
+                <WishCard
+                  name={wish.name}
+                  price={wish.price}
+                  url={wish.url}
+                  photoUrl={require('../../../../assets/images/testphoto.png')}
+                />
               </View>
             ))
         )}
@@ -83,46 +63,6 @@ const Wish = () => {
 export default Wish;
 
 const styles = StyleSheet.create({
-  cards: {
-    marginTop: 8,
-  },
-  card: {
-    height: 112,
-    backgroundColor: 'white',
-    borderRadius: 10,
-    marginTop: 8,
-    width: '100%',
-    flexDirection: 'row',
-  },
-  img: {
-    height: 100,
-    width: 100,
-    borderRadius: 10,
-    margin: 6,
-  },
-  textContainer: {
-    marginTop: 12,
-    marginLeft: 6,
-  },
-  mainText: {
-    fontFamily: 'Poppins-SemiBold',
-    fontSize: 16,
-  },
-  secondaryText: {
-    fontFamily: 'Poppins-Regular',
-    fontSize: 12,
-  },
-  linkText: {
-    fontFamily: 'Poppins-Regular',
-    fontSize: 12,
-    marginTop: 24,
-  },
-  iconContainer: {
-    position: 'absolute',
-    top: 12,
-    right: 12,
-    flexDirection: 'row',
-  },
   dateText: {
     color: '#4E9FFF',
     fontSize: 14,
@@ -132,7 +72,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-evenly',
-    marginVertical: 16,
+    marginBottom: 16,
+    marginTop: 24,
   },
   line: {
     width: 100,
