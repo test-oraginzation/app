@@ -38,7 +38,6 @@ export const fetchUserProfile = async (): Promise<UserProfile> => {
       `${BASE_URL}follows/following-count`,
     );
 
-    // Об'єднуємо отримані дані та повертаємо
     return {
       ...profileResponse.data,
       followersCount: followersResponse.data,
