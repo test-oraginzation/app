@@ -16,13 +16,6 @@ export const finishUpload = async () => {
 
 export const fetchUserProfile = async (): Promise<UserProfile> => {
   try {
-    // Отримуємо accessToken з локального сховища
-    const accessToken = await AsyncStorage.getItem('accessToken');
-
-    if (!accessToken) {
-      throw new Error('AccessToken не знайдений');
-    }
-
     // Виконуємо запит на отримання профілю користувача
     const profileResponse: AxiosResponse<UserProfile> = await http.get(
       `${BASE_URL}users/profile`,
@@ -30,14 +23,13 @@ export const fetchUserProfile = async (): Promise<UserProfile> => {
 
     // Отримуємо дані про кількість фоловерів
     const followersResponse: AxiosResponse<number> = await http.get(
-      `${BASE_URL}follows/followers-count`,
+      `${BASE_URL}users/followers-count`,
     );
 
     // Отримуємо дані про кількість користувачів, яких користувачі стежать
     const followingResponse: AxiosResponse<number> = await http.get(
-      `${BASE_URL}follows/following-count`,
+      `${BASE_URL}users/following-count`,
     );
-
     return {
       ...profileResponse.data,
       followersCount: followersResponse.data,

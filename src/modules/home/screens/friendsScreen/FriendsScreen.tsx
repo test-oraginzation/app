@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import PrimeryWrapper from '../../../core/components/primeryWrapper/PrimeryWrapper.tsx';
 import {View} from 'react-native';
-import {HeaderFriends} from '../../components/headerFriends/HeaderFriends.tsx';
+import {HeaderSearch} from '../../components/headerSearch/HeaderSearch.tsx';
 import {FriendsSubscribers} from '../../components/friendsSubscribers/FriendsSubscribers.tsx';
 import {FriendsSubscriptions} from '../../components/friendsSubscriptions/FriendsSubscriptions.tsx';
 
@@ -15,7 +15,7 @@ const FriendsScreen = () => {
   };
   return (
     <View style={{flex: 1}}>
-      <HeaderFriends onValueChange={handleSwitchChange} />
+      <HeaderSearch onValueChange={handleSwitchChange} />
       <PrimeryWrapper>
         {selectedOption === 'Subscribers' ? (
           <FriendsSubscribers />

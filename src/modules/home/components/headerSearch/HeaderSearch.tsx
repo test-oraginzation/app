@@ -5,8 +5,13 @@ import {Icon} from '../../../core/components/icons/iconsComponents.tsx';
 import {fetchUserProfile} from '../../api';
 interface SwitchButton {
   onValueChange: (value: 'Subscribers' | 'Subscriptions') => void;
+  toggleComponent: () => void;
 }
-export const HeaderFriends: React.FC<SwitchButton> = ({onValueChange}) => {
+//TODO Треба з цього зробити компонент
+export const HeaderSearch: React.FC<SwitchButton> = ({
+  onValueChange,
+  toggleComponent,
+}) => {
   const [people, setPeople] = useState('');
   const [subscribers, setSubscribers] = useState<number | null>(null);
   const [subscriptions, setSubscriptions] = useState<number | null>(null);
@@ -41,7 +46,7 @@ export const HeaderFriends: React.FC<SwitchButton> = ({onValueChange}) => {
           style={styles.input}
         />
         <Icon style={styles.icon} name={'search'} size={24} color={'#4E9FFF'} />
-        <TouchableOpacity onPress={() => setPeople('')}>
+        <TouchableOpacity onPress={toggleComponent}>
           <Text style={styles.buttonText}>Cancel</Text>
         </TouchableOpacity>
       </View>
@@ -121,6 +126,7 @@ const styles = StyleSheet.create({
   textSub: {
     fontSize: 14,
     fontFamily: 'Poppins-Medium',
+    color: '#514F50',
   },
   button: {
     borderColor: '#000',

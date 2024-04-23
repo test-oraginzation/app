@@ -8,8 +8,10 @@ interface User {
   followersCount: number;
   followingCount: number;
 }
-
-const HeaderHome = () => {
+type Props = {
+  toggleComponent: () => void;
+};
+const HeaderMain: React.FC<Props> = ({toggleComponent}) => {
   const [user, setUser] = useState<User | null>(null);
   const [subscribers, setSubscribers] = useState<number | null>(null);
   const [subscriptions, setSubscriptions] = useState<number | null>(null);
@@ -41,7 +43,7 @@ const HeaderHome = () => {
             {user && <Text style={styles.secondaryText}>{user.nickname}</Text>}
           </View>
         </View>
-        <SearchButton onPress={() => {}} style={{}} />
+        <SearchButton onPress={toggleComponent} style={{marginBottom: 15}} />
       </View>
       <View style={styles.miniContainersecond}>
         <View style={styles.textContainer}>
@@ -68,7 +70,7 @@ const HeaderHome = () => {
   );
 };
 
-export default HeaderHome;
+export default HeaderMain;
 
 const styles = StyleSheet.create({
   mainText: {
