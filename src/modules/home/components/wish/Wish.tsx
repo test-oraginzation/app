@@ -2,23 +2,27 @@ import React, {useEffect, useState} from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import HomePageMainContentEmpty from '../homePageMainContentEmpty/HomePageMainContentEmpty.tsx';
 import {wishesResponse} from '../../api';
-import {WishData} from '../../api/interface.ts';
+import {WishDataItem} from '../../api/interface.ts';
 import {formatDate} from './formatDate.ts';
 import {WishCard} from './wishCard/WishCard.tsx';
 
 const Wish = () => {
-  const [wishes, setWishes] = useState<WishData[]>([]);
+  const [wishes, setWishes] = useState<WishDataItem[]>([]);
+
   const fetchData = async () => {
     try {
       const wishesData = await wishesResponse();
-      setWishes(wishesData);
-    } catch (error) {
-      console.log('error', error);
+      setWishes(wishesData.items);
+      console.log('Payload:', JSON.stringify(wishesData, null, 2));
+    } catch (err) {
+      console.error('Error fetching wishes:', err);
     }
   };
+
   useEffect(() => {
     fetchData();
   }, []);
+
   return (
     <ScrollView showsVerticalScrollIndicator={false}>
       <View>

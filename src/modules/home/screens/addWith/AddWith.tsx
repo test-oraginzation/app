@@ -43,12 +43,12 @@ const AddWith = () => {
       });
       if (data.status === 201) {
         navigation.goBack();
-        Alert.alert('віш ліст успішно створено');
+        Alert.alert('successfully created');
       }
     } catch (error) {
       console.error('Error:', error);
       {
-        error ? setAddWishError('user not found') : null;
+        error ? setAddWishError('enter all data') : null;
       }
     }
   };
@@ -62,14 +62,13 @@ const AddWith = () => {
 
   return (
     <PrimeryWrapper>
-      <ScrollView>
+      <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.photoContainer}>
           <TouchableOpacity style={styles.photoBtnContainer}>
             <Image
               source={require('../../../../assets/images/addwith.png')}
               style={styles.profilePicture}
             />
-            <SearchButton icon={'camera'} style={styles.iconBtn} />
           </TouchableOpacity>
         </View>
         <View style={{marginBottom: 40}}>
@@ -112,7 +111,6 @@ const AddWith = () => {
                   {label: 'UAH', value: 'UAH'},
                 ]}
                 onValueChange={handleCurrencyChange}
-                //TODO Зробити щоб модалка закривалась при натискані на екран (розтянути поле)
               />
             </View>
           </View>

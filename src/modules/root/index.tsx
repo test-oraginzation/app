@@ -15,10 +15,6 @@ const Root = () => {
     <View style={{flex: 1}}>
       <NavigationContainer>
         {accessToken ? <UserNavigationGroup /> : <Auth />}
-        {/*{accessToken || token ? <UserNavigationGroup /> : <Auth />}*/}
-        {/*<UserNavigationGroup />*/}
-        {/*<Auth />*/}
-        {/*<AddWith />*/}
       </NavigationContainer>
     </View>
   );

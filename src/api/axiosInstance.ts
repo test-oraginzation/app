@@ -1,32 +1,48 @@
 import axios from 'axios';
 import {BASE_URL} from '../configs/access.config.ts';
-import {SessionType} from '../modules/core/typing/enums';
 import {
   getAsyncStorage,
   setAsyncStorage,
 } from '../modules/core/services/storage.services.ts';
+import {SessionType} from '../modules/core/typing/enums';
 
 const instance = axios.create({
   baseURL: `${BASE_URL}`,
 });
 
+instance.interceptors.request.use(
+  async config => {
+    const accessToken = await getAsyncStorage(SessionType.AccessToken);
+    if (accessToken) {
+      config.headers.Authorization = `Bearer ${accessToken}`;
+    }
+    return config;
+  },
+  error => {
+    return Promise.reject(error);
+  },
+);
+
 instance.interceptors.response.use(
-  response => response, // Успішна відповідь без змін
+  response => response,
   async error => {
     const originalRequest = error.config;
     if (error.response.status === 401) {
-      originalRequest._retry = true;
       const refreshToken = await getAsyncStorage(SessionType.RefreshToken);
       if (refreshToken) {
         try {
-          const response = await axios.get(`${BASE_URL}auth/refresh`, {
+          // Виконуємо POST-запит для оновлення токену
+          const response = await axios.post(`${BASE_URL}auth/refresh`, null, {
             headers: {Authorization: `Bearer ${refreshToken}`},
           });
+          // Зберігаємо новий accessToken
           await setAsyncStorage(
             SessionType.AccessToken,
-            response.data.accessToken,
+            response.data.access_token,
           );
-          originalRequest.headers.Authorization = `Bearer ${response.data.accessToken}`;
+          // Оновлюємо заголовок запиту з новим токеном
+          originalRequest.headers.Authorization = `Bearer ${response.data.access_token}`;
+          // Повторюємо оригінальний запит
           return instance(originalRequest);
         } catch (refreshError) {
           console.error('Failed to refresh access token:', refreshError);
