@@ -1,4 +1,10 @@
-import {IPayloadAddWish, patchSettingDataPR, UserProfile, WishData} from './interface.ts';
+import {
+  IPayloadAddWish,
+  patchSettingDataPR,
+  UserListProps,
+  UserProfile, Wish,
+  WishData,
+} from './interface.ts';
 import axios, {AxiosResponse} from 'axios';
 import {BASE_URL} from '../../../configs/access.config.ts';
 import instance from '../../../api/axiosInstance.ts';
@@ -58,3 +64,17 @@ export const patchSettingData = async (payload: patchSettingDataPR) => {
   const response = await instance.patch(`${BASE_URL}users`, payload);
   return response.data;
 };
+
+export const getUsers = async (): Promise<UserListProps> => {
+  const response = await instance.get(`${BASE_URL}users`);
+  return response.data;
+};
+
+export const getWishes = async (): Promise<Wish[]> => {
+  const response = await instance.get(`${BASE_URL}wishes/all`);
+  return response.data;
+};
+
+export const userSearch = async (search) => {
+  const response = await instance.get(`${BASE_URL}users?search=${search}`)
+}
