@@ -8,7 +8,7 @@ import {
   ActivityIndicator,
   ScrollView,
 } from 'react-native';
-import {getUsers} from '../../api';
+import {getUsers, usersFollowingCheckId} from '../../api';
 import {UserListProps} from '../../api/interface.ts';
 import {useNavigation} from '@react-navigation/native';
 import {RouteKey} from '../../../core/typing/enums';
@@ -63,12 +63,6 @@ export const UserList: React.FC<UserListProp> = ({search}) => {
                   />
                   <Text style={styles.textName}>{item.nickname}</Text>
                 </View>
-                <TouchableOpacity
-                  activeOpacity={1}
-                  onPress={() => handlePress(item.id)}
-                  style={styles.button}>
-                  <Text style={styles.buttonText}>Subscribe</Text>
-                </TouchableOpacity>
               </TouchableOpacity>
               {index < users.items.length - 1 && <View style={styles.line} />}
             </React.Fragment>

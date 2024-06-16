@@ -1,8 +1,10 @@
 import {
   IPayloadAddWish,
-  patchSettingDataPR, User,
+  patchSettingDataPR,
+  User,
   UserListProps,
-  UserProfile, Wish,
+  UserProfile,
+  Wish,
   WishData,
 } from './interface.ts';
 import axios, {AxiosResponse} from 'axios';
@@ -69,7 +71,7 @@ export const getUsers = async (search: string): Promise<UserListProps> => {
 
 export const getWishes = async (search: string): Promise<Wish[]> => {
   const response = await instance.get(`${BASE_URL}wishes/all?search=${search}`);
-  return response.data;
+  return response.data.items;
 };
 
 export const getUsersId = async (id: number): Promise<User> => {
@@ -88,5 +90,17 @@ export const getUsersIdFollowers = async (id: number) => {
 
 export const getUsersIdWishes = async (id: number): Promise<WishData> => {
   const response = await instance.get(`${BASE_URL}users/${id}/wishes`);
+  return response.data;
+};
+
+export const usersFollowings = async (id: number) => {
+  const response = await instance.post(`${BASE_URL}users/followings`, {
+    following: id,
+  });
+  return response.data;
+};
+
+export const usersFollowingCheckId = async (id: number) => {
+  const response = await instance.get(`${BASE_URL}users/following/check/${id}`);
   return response.data;
 };

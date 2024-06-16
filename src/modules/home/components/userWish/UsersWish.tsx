@@ -1,11 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
-import HomePageMainContentEmpty from '../homePageMainContentEmpty/HomePageMainContentEmpty.tsx';
 import {getUsersIdWishes} from '../../api';
 import {WishDataItem} from '../../api/interface.ts';
 import {formatDate} from './formatDate.ts';
 import {WishCard} from '../wish/wishCard/WishCard.tsx';
-import {UserPageContentEmpty} from "../userPageContentEmpty/UserPageContentEmpty.tsx";
+import {UserPageContentEmpty} from '../userPageContentEmpty/UserPageContentEmpty.tsx';
 
 interface UsersWishProps {
   id: number;

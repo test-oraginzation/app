@@ -18,7 +18,7 @@ export const WishCard: React.FC<WishCardProps> = ({
 }) => {
   return (
     <View style={styles.card}>
-      <Image source={photoUrl} style={styles.img} />
+      {/*<Image source={photoUrl} style={styles.img} />*/}
       <View style={styles.textContainer}>
         <Text style={styles.mainText}>{name}</Text>
         <Text style={styles.secondaryText}>{price} USD</Text>

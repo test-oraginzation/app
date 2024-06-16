@@ -1,6 +1,19 @@
 import React, {useEffect, useState} from 'react';
-import {ActivityIndicator, Image, StyleSheet, Text, View} from 'react-native';
-import {getUsersId, getUsersIdFollowers, getUsersIdFollowings} from '../api';
+import {
+  ActivityIndicator,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import {
+  getUsersId,
+  getUsersIdFollowers,
+  getUsersIdFollowings,
+  usersFollowingCheckId,
+  usersFollowings,
+} from '../api';
 import {User} from '../api/interface.ts';
 import PrimeryWrapper from '../../core/components/primeryWrapper/PrimeryWrapper.tsx';
 import SwitchButton from '../components/switchButton/SwitchButton.tsx';
@@ -16,6 +29,7 @@ interface SearchPeopleAccProps {
 }
 
 export const SearchPeopleAcc: React.FC<SearchPeopleAccProps> = ({route}) => {
+  const [isSub, setIsSub] = useState<boolean>(false);
   const [subscribers, setSubscribers] = useState<number | null>(null);
   const [subscriptions, setSubscriptions] = useState<number | null>(null);
   const [user, setUser] = useState<User | null>(null);
@@ -27,15 +41,25 @@ export const SearchPeopleAcc: React.FC<SearchPeopleAccProps> = ({route}) => {
   const handleSwitchChange = (value: 'Lists' | 'Wish') => {
     setSelectedOption(value);
   };
+  const subscribeInUser = async () => {
+    try {
+      const data = await usersFollowings(id);
+      console.log(data);
+    } catch (err) {
+      console.log(err);
+    }
+  };
   useEffect(() => {
     const fetchUserData = async () => {
       try {
+        const isSubing = await usersFollowingCheckId(id);
+        setIsSub(isSubing);
         const data = await getUsersId(id);
         const followings = await getUsersIdFollowings(id);
         const followers = await getUsersIdFollowers(id);
         setUser(data);
-        setSubscriptions(followings);
-        setSubscribers(followers);
+        setSubscriptions(followings.length);
+        setSubscribers(followers.length);
       } catch (err) {
         console.log(err);
       } finally {
@@ -58,11 +82,20 @@ export const SearchPeopleAcc: React.FC<SearchPeopleAccProps> = ({route}) => {
             source={require('../../../assets/images/addwith.png')}
             style={styles.profilePicture}
           />
-          <View style={styles.containerName}>
-            <Text style={styles.mainText}>{user?.name}</Text>
-            <Text style={[styles.mainText, {marginLeft: 8}]}>
-              {user?.surname}
-            </Text>
+          <View style={{marginLeft: 12}}>
+            <View style={styles.containerName}>
+              <Text style={styles.mainText}>{user?.name}</Text>
+              <Text style={[styles.mainText, {marginLeft: 8}]}>
+                {user?.surname}
+              </Text>
+            </View>
+            {!isSub ? (
+              <TouchableOpacity
+                style={styles.button}
+                onPress={() => subscribeInUser()}>
+                <Text style={styles.textForButton}>Subscribe</Text>
+              </TouchableOpacity>
+            ) : null}
           </View>
         </View>
         <View style={styles.miniContainersecond}>
@@ -119,6 +152,7 @@ const styles = StyleSheet.create({
     marginHorizontal: 16,
     alignItems: 'center',
     justifyContent: 'space-around',
+    marginTop: 30,
   },
   profilePicture: {
     height: 64,
@@ -157,5 +191,19 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: '33%',
     marginHorizontal: 20,
+  },
+  textForButton: {
+    color: 'white',
+    fontFamily: 'Poppins-Medium',
+    fontSize: 14,
+  },
+  button: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 30,
+    width: 120,
+    borderRadius: 8,
+    backgroundColor: '#4E9FFF',
+    marginTop: 8,
   },
 });
