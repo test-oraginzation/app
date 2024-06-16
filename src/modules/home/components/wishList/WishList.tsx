@@ -11,24 +11,28 @@ import {
 import {getWishes} from '../../api';
 import {Wish} from '../../api/interface.ts';
 
-export const WishList = () => {
+interface WishListProps {
+  search: string;
+}
+
+export const WishList: React.FC<WishListProps> = ({search}) => {
   const [wishes, setWishes] = useState<Wish[]>([]);
   const [loading, setLoading] = useState(true);
 
-  const getUserData = async () => {
-    try {
-      const data = await getWishes();
-      setWishes(data);
-    } catch (err) {
-      console.log(err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
-    getUserData();
-  }, []);
+    const getWishData = async () => {
+      setLoading(true);
+      try {
+        const data = await getWishes(search);
+        setWishes(data);
+      } catch (err) {
+        console.log(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    getWishData();
+  }, [search]);
 
   const handlePress = (id: number) => {
     console.log('Wish ID:', id);
@@ -39,6 +43,11 @@ export const WishList = () => {
       {loading && (
         <View style={styles.loadingOverlay}>
           <ActivityIndicator size="large" color={'#4E9FFF'} />
+        </View>
+      )}
+      {!loading && wishes.length === 0 && (
+        <View style={styles.loadingOverlay}>
+          <Text>No wishes found</Text>
         </View>
       )}
       {wishes.map((wish, index) => (
@@ -71,6 +80,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 1,
+    marginTop: 45,
   },
   line: {
     backgroundColor: '#CEDAE6',

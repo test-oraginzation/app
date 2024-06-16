@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import PrimeryWrapper from '../../../core/components/primeryWrapper/PrimeryWrapper.tsx';
+import PrimeryWrapper from '../../core/components/primeryWrapper/PrimeryWrapper.tsx';
 import {
   Alert,
   Image,
@@ -10,14 +10,14 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import SearchButton from '../../components/smallAuxiliaryButton/SmallAuxiliaryButton.tsx';
-import PrimaryInput from '../../../core/components/primaryInput/PrimaryInput.tsx';
-import PrimaryButton from '../../../core/components/primaryButton/PrimaryButton.tsx';
-import DropDownPicker from '../../../core/components/dropDownPicker/DropDownPicker.tsx';
-import MultilineTextInput from '../../../core/components/multilineTextInput/MultilineTextInput.tsx';
-import {checkEmptyStrings} from '../../../core/functions';
-import {ToggleButton} from '../../../core/components/toggleButton/ToggleButton.tsx';
-import {addWishReq} from '../../api';
+import SearchButton from '../components/smallAuxiliaryButton/SmallAuxiliaryButton.tsx';
+import PrimaryInput from '../../core/components/primaryInput/PrimaryInput.tsx';
+import PrimaryButton from '../../core/components/primaryButton/PrimaryButton.tsx';
+import DropDownPicker from '../../core/components/dropDownPicker/DropDownPicker.tsx';
+import MultilineTextInput from '../../core/components/multilineTextInput/MultilineTextInput.tsx';
+import {checkEmptyStrings} from '../../core/functions';
+import {ToggleButton} from '../../core/components/toggleButton/ToggleButton.tsx';
+import {addWishReq} from '../api';
 import {useNavigation} from '@react-navigation/native';
 
 const AddWith = () => {
@@ -66,7 +66,7 @@ const AddWith = () => {
         <View style={styles.photoContainer}>
           <TouchableOpacity style={styles.photoBtnContainer}>
             <Image
-              source={require('../../../../assets/images/addwith.png')}
+              source={require('../../../assets/images/addwith.png')}
               style={styles.profilePicture}
             />
           </TouchableOpacity>

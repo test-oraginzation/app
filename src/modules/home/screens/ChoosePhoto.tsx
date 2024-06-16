@@ -1,10 +1,10 @@
 import React from 'react';
-import PrimeryWrapper from '../../../core/components/primeryWrapper/PrimeryWrapper.tsx';
+import PrimeryWrapper from '../../core/components/primeryWrapper/PrimeryWrapper.tsx';
 import {Image, StyleSheet, Text, View} from 'react-native';
-import PrimaryButton from '../../../core/components/primaryButton/PrimaryButton.tsx';
-import SecondaryButton from '../../../core/components/secondaryButton/SecondaryButton.tsx';
+import PrimaryButton from '../../core/components/primaryButton/PrimaryButton.tsx';
+import SecondaryButton from '../../core/components/secondaryButton/SecondaryButton.tsx';
 import {launchImageLibrary} from 'react-native-image-picker';
-import {finishUpload, getSignedUrl, uploadPhoto} from '../../api';
+import {finishUpload, getSignedUrl, uploadPhoto} from '../api';
 import {readFile} from 'react-native-fs';
 
 const ChoosePhoto = () => {
@@ -58,7 +58,7 @@ const ChoosePhoto = () => {
       </Text>
       <Image
         style={styles.image}
-        source={require('../../../../assets/images/Frame36.png')}
+        source={require('../../../assets/images/Frame36.png')}
       />
       <View style={styles.container}>
         <PrimaryButton

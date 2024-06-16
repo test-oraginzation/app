@@ -4,9 +4,8 @@ import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import PrimaryInput from '../../../core/components/primaryInput/PrimaryInput.tsx';
 import PrimaryButton from '../../../core/components/primaryButton/PrimaryButton.tsx';
 import {signIn} from '../../api';
-import {useToken} from '../../../../hooks/useSession.store.ts';
 import {checkEmptyStrings} from '../../../core/functions';
-import {useSession} from "../../../../hooks/useSession.ts";
+import {useSession} from '../../../../hooks/useSession.ts';
 
 const SignIn = () => {
   const [nickname, setNickname] = useState('');

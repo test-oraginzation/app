@@ -1,6 +1,6 @@
 import {
   IPayloadAddWish,
-  patchSettingDataPR,
+  patchSettingDataPR, User,
   UserListProps,
   UserProfile, Wish,
   WishData,
@@ -21,17 +21,14 @@ export const finishUpload = async () => {
 
 export const fetchUserProfile = async (): Promise<UserProfile> => {
   try {
-    // Виконуємо запит на отримання профілю користувача
     const profileResponse: AxiosResponse<UserProfile> = await instance.get(
       `${BASE_URL}users/profile`,
     );
 
-    // Отримуємо дані про кількість фоловерів
     const followersResponse: AxiosResponse<number> = await instance.get(
       `${BASE_URL}users/followers-count`,
     );
 
-    // Отримуємо дані про кількість користувачів, яких користувачі стежать
     const followingResponse: AxiosResponse<number> = await instance.get(
       `${BASE_URL}users/following-count`,
     );
@@ -65,16 +62,31 @@ export const patchSettingData = async (payload: patchSettingDataPR) => {
   return response.data;
 };
 
-export const getUsers = async (): Promise<UserListProps> => {
-  const response = await instance.get(`${BASE_URL}users`);
+export const getUsers = async (search: string): Promise<UserListProps> => {
+  const response = await instance.get(`${BASE_URL}users?search=${search}`);
   return response.data;
 };
 
-export const getWishes = async (): Promise<Wish[]> => {
-  const response = await instance.get(`${BASE_URL}wishes/all`);
+export const getWishes = async (search: string): Promise<Wish[]> => {
+  const response = await instance.get(`${BASE_URL}wishes/all?search=${search}`);
   return response.data;
 };
 
-export const userSearch = async (search) => {
-  const response = await instance.get(`${BASE_URL}users?search=${search}`)
-}
+export const getUsersId = async (id: number): Promise<User> => {
+  const response = await instance.get(`${BASE_URL}users/${id}`);
+  return response.data;
+};
+
+export const getUsersIdFollowings = async (id: number) => {
+  const response = await instance.get(`${BASE_URL}users/${id}/followings`);
+  return response.data;
+};
+export const getUsersIdFollowers = async (id: number) => {
+  const response = await instance.get(`${BASE_URL}users/${id}/followers`);
+  return response.data;
+};
+
+export const getUsersIdWishes = async (id: number): Promise<WishData> => {
+  const response = await instance.get(`${BASE_URL}users/${id}/wishes`);
+  return response.data;
+};

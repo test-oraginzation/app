@@ -1,17 +1,18 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import HomeScreen from '../../home/screens/homeScreen/HomeScreen.tsx';
+import HomeScreen from '../../home/screens/HomeScreen.tsx';
 import {RouteKey} from '../../core/typing/enums';
 import SkipChoosePhoto from '../components/SkipChoosePhoto.tsx';
-import ChoosePhoto from '../../home/screens/choosePhoto/ChoosePhoto.tsx';
+import ChoosePhoto from '../../home/screens/ChoosePhoto.tsx';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import SearchScreen from '../../home/screens/searchScreen/SearchScreen.tsx';
-import SettingScreen from '../../home/screens/settingScreen/SettingScreen.tsx';
-import FriendsScreen from '../../home/screens/friendsScreen/FriendsScreen.tsx';
+import SearchScreen from '../../home/screens/SearchScreen.tsx';
+import SettingScreen from '../../home/screens/SettingScreen.tsx';
+import FriendsScreen from '../../home/screens/FriendsScreen.tsx';
 import TabButton from '../components/TabButton.tsx';
 import {TabBarWidget} from '../widgets';
-import AddWith from '../../home/screens/addWith/AddWith.tsx';
+import AddWith from '../../home/screens/AddWith.tsx';
 import GoBack from '../components/GoBack.tsx';
+import {SearchPeopleAcc} from '../../home/screens/SearchPeopleAcc.tsx';
 
 const TabStack = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -59,6 +60,7 @@ export const UserNavigationGroup = () => {
           headerLeft: () => <GoBack />,
         }}
       />
+      <Stack.Screen name={RouteKey.SearchPeopleAcc} component={SearchPeopleAcc} />
     </Stack.Navigator>
   );
 };

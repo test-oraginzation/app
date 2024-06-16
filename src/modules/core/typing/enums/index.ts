@@ -13,6 +13,7 @@ export enum RouteKey {
   Action = 'Action',
   TabButton = 'TabButton',
   AddWith = 'AddWith',
+  SearchPeopleAcc = 'SearchPeopleAcc',
 }
 export enum NavGroup {
   Auth = 'Auth',

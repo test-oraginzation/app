@@ -1,5 +1,5 @@
 import React from 'react';
-import PrimeryWrapper from '../../../core/components/primeryWrapper/PrimeryWrapper.tsx';
+import PrimeryWrapper from '../../core/components/primeryWrapper/PrimeryWrapper.tsx';
 import {
   Image,
   ScrollView,
@@ -8,12 +8,12 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import PrimaryButton from '../../../core/components/primaryButton/PrimaryButton.tsx';
-import {useSession} from '../../../../hooks/useSession.ts';
-import PrimaryInput from '../../../core/components/primaryInput/PrimaryInput.tsx';
+import PrimaryButton from '../../core/components/primaryButton/PrimaryButton.tsx';
+import {useSession} from '../../../hooks/useSession.ts';
+import PrimaryInput from '../../core/components/primaryInput/PrimaryInput.tsx';
 import {Formik, FormikProps} from 'formik';
-import {validationSchemaSettings} from '../../validation/validation.ts';
-import {patchSettingData} from '../../api';
+import {validationSchemaSettings} from '../validation/validation.ts';
+import {patchSettingData} from '../api';
 
 const SettingScreen = () => {
   const {clearSessionTokens} = useSession();
@@ -43,14 +43,14 @@ const SettingScreen = () => {
     <>
       <Image
         style={styles.imageCloud}
-        source={require('../../../../assets/images/Cloud.png')}
+        source={require('../../../assets/images/Cloud.png')}
       />
       <PrimeryWrapper>
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.containerImage}>
             <Image
               style={styles.image}
-              source={require('../../../../assets/images/024-meditation.png')}
+              source={require('../../../assets/images/024-meditation.png')}
             />
           </View>
           <View style={styles.stylesForm}>
@@ -132,7 +132,7 @@ const SettingScreen = () => {
                     )}
                     <Image
                       style={styles.calendar}
-                      source={require('../../../../assets/images/Calendar.png')}
+                      source={require('../../../assets/images/Calendar.png')}
                     />
                   </View>
 

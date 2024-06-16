@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
-import PrimeryWrapper from '../../../core/components/primeryWrapper/PrimeryWrapper.tsx';
+import PrimeryWrapper from '../../core/components/primeryWrapper/PrimeryWrapper.tsx';
 import {Text, View} from 'react-native';
-import HeaderMain from '../../components/headerMain/headerMain.tsx';
-import SwitchButton from '../../components/switchButton/SwitchButton.tsx';
-import List from '../../components/list/List.tsx';
-import Wish from '../../components/wish/Wish.tsx';
-import {HeaderSearch} from "../../components/headerSearch/HeaderSearch.tsx";
+import HeaderMain from '../components/headerMain/headerMain.tsx';
+import SwitchButton from '../components/switchButton/SwitchButton.tsx';
+import List from '../components/list/List.tsx';
+import Wish from '../components/wish/Wish.tsx';
+import {HeaderSearch} from "../components/headerSearch/HeaderSearch.tsx";
 
 const HomeScreen = () => {
   const [selectedOption, setSelectedOption] = useState<'Lists' | 'Wish'>(

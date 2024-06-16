@@ -10,25 +10,32 @@ import {
 } from 'react-native';
 import {getUsers} from '../../api';
 import {UserListProps} from '../../api/interface.ts';
+import {useNavigation} from '@react-navigation/native';
+import {RouteKey} from '../../../core/typing/enums';
 
-export const UserList = () => {
+interface UserListProp {
+  search: string;
+}
+
+export const UserList: React.FC<UserListProp> = ({search}) => {
   const [users, setUsers] = useState<UserListProps | null>(null);
   const [loading, setLoading] = useState(true);
-
-  const getUserData = async () => {
-    try {
-      const data = await getUsers();
-      setUsers(data);
-    } catch (err) {
-      console.log(err);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const navigation: any = useNavigation();
 
   useEffect(() => {
+    const getUserData = async () => {
+      setLoading(true);
+      try {
+        const data = await getUsers(search);
+        setUsers(data);
+      } catch (err) {
+        console.log(err);
+      } finally {
+        setLoading(false);
+      }
+    };
     getUserData();
-  }, []);
+  }, [search]);
 
   const handlePress = (id: number) => {
     console.log('User ID:', id);
@@ -41,32 +48,36 @@ export const UserList = () => {
           <ActivityIndicator size="large" color={'#4E9FFF'} />
         </View>
       )}
-      {users ? (
-        users.items.map((item, index) => (
-          <React.Fragment key={item.id}>
-            <View style={styles.containerCardMain}>
-              <View style={styles.containerCard}>
-                <Image
-                  source={require('../../../../assets/images/addwith.png')}
-                  style={styles.image}
-                />
-                <Text style={styles.textName}>{item.nickname}</Text>
-              </View>
+      {users
+        ? users.items.map((item, index) => (
+            <React.Fragment key={item.id}>
               <TouchableOpacity
-                activeOpacity={1}
-                onPress={() => handlePress(item.id)}
-                style={styles.button}>
-                <Text style={styles.buttonText}>Subscribe</Text>
+                style={styles.containerCardMain}
+                onPress={() =>
+                  navigation.navigate(RouteKey.SearchPeopleAcc, {id: item.id})
+                }>
+                <View style={styles.containerCard}>
+                  <Image
+                    source={require('../../../../assets/images/addwith.png')}
+                    style={styles.image}
+                  />
+                  <Text style={styles.textName}>{item.nickname}</Text>
+                </View>
+                <TouchableOpacity
+                  activeOpacity={1}
+                  onPress={() => handlePress(item.id)}
+                  style={styles.button}>
+                  <Text style={styles.buttonText}>Subscribe</Text>
+                </TouchableOpacity>
               </TouchableOpacity>
+              {index < users.items.length - 1 && <View style={styles.line} />}
+            </React.Fragment>
+          ))
+        : !loading && (
+            <View style={styles.loadingOverlay}>
+              <Text>No users found</Text>
             </View>
-            {index < users.items.length - 1 && <View style={styles.line} />}
-          </React.Fragment>
-        ))
-      ) : (
-        <View style={styles.loadingOverlay}>
-          <ActivityIndicator size="large" color={'#4E9FFF'} />
-        </View>
-      )}
+          )}
     </ScrollView>
   );
 };
@@ -77,7 +88,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 1,
-    marginTop: 50,
+    marginTop: 45,
   },
   line: {
     backgroundColor: '#CEDAE6',
