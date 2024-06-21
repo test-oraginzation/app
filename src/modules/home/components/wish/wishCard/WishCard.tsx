@@ -16,7 +16,6 @@ export const WishCard: React.FC<WishCardProps> = ({
   name,
   price,
   url,
-  photoUrl,
   onDelete,
 }) => {
   const [isDropdownVisible, setDropdownVisible] = useState(false);

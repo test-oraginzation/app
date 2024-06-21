@@ -113,14 +113,34 @@ export const SearchPeopleAcc: React.FC<SearchPeopleAccProps> = ({route}) => {
         </View>
       </View>
       <PrimeryWrapper>
-        <SwitchButton onValueChange={handleSwitchChange} />
-        {selectedOption === 'Lists' ? <UsersList /> : <UsersWish id={id} />}
+        {/*<SwitchButton onValueChange={handleSwitchChange} />*/}
+        {/*{selectedOption === 'Lists' ? <UsersList /> : <UsersWish id={id} />}*/}
+        <View style={styles.buttonD}>
+          <Text style={styles.textM}>Wish</Text>
+        </View>
+        <UsersWish id={id} />
       </PrimeryWrapper>
     </>
   );
 };
 
 const styles = StyleSheet.create({
+  buttonD: {
+    marginTop: 24,
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: 36,
+    width: '100%',
+    backgroundColor: '#CEECFD',
+    borderColor: '#4E9FFF',
+    borderWidth: 1,
+    borderRadius: 50,
+  },
+  textM: {
+    fontSize: 16,
+    fontFamily: 'Poppins-SemiBold',
+    color: '#4E9FFF',
+  },
   containerName: {
     flexDirection: 'row',
   },

@@ -131,7 +131,9 @@ const AddList = () => {
           <View style={{marginBottom: 24}}>
             <Text style={styles.lableMain}>Choose collection</Text>
 
-            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate(RouteKey.ChooseWish)}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => navigation.navigate(RouteKey.ChooseWish)}>
               <Image
                 style={{width: 40, height: 40}}
                 source={require('../../../assets/images/Choose.png')}
