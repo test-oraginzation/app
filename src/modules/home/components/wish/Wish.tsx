@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
 import HomePageMainContentEmpty from '../homePageMainContentEmpty/HomePageMainContentEmpty.tsx';
-import {wishesResponse} from '../../api';
+import {deleteWish, wishesResponse} from '../../api';
 import {WishDataItem} from '../../api/interface.ts';
 import {formatDate} from './formatDate.ts';
 import {WishCard} from './wishCard/WishCard.tsx';
-
+import {useFocusEffect} from '@react-navigation/native';
 const Wish = () => {
   const [wishes, setWishes] = useState<WishDataItem[]>([]);
 
@@ -16,6 +16,17 @@ const Wish = () => {
       console.log('Payload:', JSON.stringify(wishesData, null, 2));
     } catch (err) {
       console.error('Error fetching wishes:', err);
+    }
+  };
+
+  const deleteWishes = async (id: number) => {
+    console.log(id);
+    try {
+      const data = await deleteWish(id);
+      console.log(data);
+      fetchData();
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -38,7 +49,7 @@ const Wish = () => {
                 new Date(a.createdDate).getTime(),
             )
             .map((wish, index, array) => (
-              <View key={index}>
+              <View key={wish.id}>
                 {(index === 0 ||
                   formatDate(wish.createdDate) !==
                     formatDate(array[index - 1].createdDate)) && (
@@ -51,10 +62,12 @@ const Wish = () => {
                   </View>
                 )}
                 <WishCard
+                  id={wish.id}
                   name={wish.name}
                   price={wish.price}
                   url={wish.url}
                   photoUrl={require('../../../../assets/images/testphoto.png')}
+                  onDelete={deleteWishes}
                 />
               </View>
             ))

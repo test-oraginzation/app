@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import {getWishes} from '../../api';
 import {Wish} from '../../api/interface.ts';
-import Clipboard from "@react-native-clipboard/clipboard";
+import Clipboard from '@react-native-clipboard/clipboard';
 
 interface WishListProps {
   search: string;
@@ -39,7 +39,9 @@ export const WishList: React.FC<WishListProps> = ({search}) => {
     };
     getWishData();
   }, [search]);
-
+  const copy = (url: string) => {
+    Clipboard.setString(url);
+  };
   const handlePress = (id: number) => {
     console.log('Wish ID:', id);
   };
@@ -61,10 +63,12 @@ export const WishList: React.FC<WishListProps> = ({search}) => {
         wishes.map((wish, index) => (
           <React.Fragment key={wish.id}>
             <TouchableOpacity
-              onPress={() => {handlePress()}}
+              onPress={() => {
+                handlePress();
+              }}
               style={styles.containerCardMain}>
               <Image
-                source={require('../../../../assets/images/testphoto.png')}
+                source={require('../../../../assets/images/Wish.png')}
                 style={styles.image}
               />
               <View style={styles.containerForText}>
@@ -75,10 +79,9 @@ export const WishList: React.FC<WishListProps> = ({search}) => {
                 <Text style={styles.textPrice}>{wish.url}</Text>
               </View>
               <TouchableOpacity
-                activeOpacity={1}
                 style={styles.buttonCopy}
                 onPress={() => {
-                  copy()
+                  copy(wish.url);
                 }}>
                 <Image
                   source={require('../../../../assets/images/Copy.png')}

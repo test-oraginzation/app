@@ -37,13 +37,13 @@ export const ActionButtonAtom = () => {
 
 const styles = StyleSheet.create({
   container: {
-    width: 60,
-    height: 60,
+    width: 55,
+    height: 55,
     borderRadius: 50,
     backgroundColor: 'white',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 65,
+    marginBottom: 10,
     shadowColor: '#171717',
     shadowOffset: {width: -2, height: 4},
     shadowOpacity: 0.2,

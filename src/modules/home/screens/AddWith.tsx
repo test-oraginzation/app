@@ -39,7 +39,7 @@ const AddWith = () => {
         price: parseFloat(price),
         url,
         description,
-        private: isPrivate,
+        private: false,
       });
       if (data.status === 201) {
         navigation.goBack();
@@ -142,12 +142,12 @@ const AddWith = () => {
               }}
             />
           </View>
-          <View>
-            <ToggleButton
-              text={'Hide wishes from other users'}
-              onToggle={handleToggle}
-            />
-          </View>
+          {/*<View>*/}
+          {/*  <ToggleButton*/}
+          {/*    text={'Hide wishes from other users'}*/}
+          {/*    onToggle={handleToggle}*/}
+          {/*  />*/}
+          {/*</View>*/}
         </View>
         <View style={styles.containerForButton}>
           {addWishError ? (

@@ -104,3 +104,23 @@ export const usersFollowingCheckId = async (id: number) => {
   const response = await instance.get(`${BASE_URL}users/following/check/${id}`);
   return response.data;
 };
+
+export const deleteWish = async (id: number) => {
+  const response = await instance.delete(`${BASE_URL}wishes/${id}`);
+  return response.data;
+};
+export const getUsersFollowings = async () => {
+  const response = await instance.get(`${BASE_URL}users/followings`);
+  return response.data;
+};
+//ЛЮДИ НА КОТРИХ Я ПІДПИСАНИЙ
+export const usersUnFollowings = async (id: number) => {
+  const response = await instance.delete(`${BASE_URL}users/followings/${id}`);
+  return response.data;
+};
+
+export const getUsersFollowers = async () => {
+  const response = await instance.get(`${BASE_URL}users/followers`);
+  return response.data;
+};
+//ПІДПИСНИКИ

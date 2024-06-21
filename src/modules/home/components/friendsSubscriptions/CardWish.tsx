@@ -1,17 +1,18 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 
-interface CardFollowProps {
+interface CardWishProps {
   id: number;
   name: string;
   onViewProfile?: (id: number) => void;
   onFollowAction?: (id: number) => void;
 }
 
-export const CardFollow: React.FC<CardFollowProps> = ({
+export const CardWish: React.FC<CardWishProps> = ({
   id,
   name,
   onViewProfile,
+  onFollowAction,
 }) => {
   return (
     <TouchableOpacity
@@ -26,10 +27,9 @@ export const CardFollow: React.FC<CardFollowProps> = ({
       </View>
       <View style={styles.buttonContainer}>
         <TouchableOpacity
-          disabled={true}
           style={styles.button}
-          onPress={() => onViewProfile && onViewProfile(id)}>
-          <Text style={styles.buttonText}>Tracked</Text>
+          onPress={() => onFollowAction(id)}>
+          <Text style={styles.buttonText}>Unsubscribe</Text>
         </TouchableOpacity>
       </View>
     </TouchableOpacity>
@@ -60,14 +60,14 @@ const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
     justifyContent: 'center',
-    width: 80,
+    width: 100,
     height: 30,
     borderRadius: 8,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: '#4E9FFF',
     marginLeft: 10,
   },
   buttonText: {
-    color: '#4E9FFF',
+    color: '#FFFFFF',
     fontFamily: 'Poppins-Medium',
     fontSize: 14,
   },

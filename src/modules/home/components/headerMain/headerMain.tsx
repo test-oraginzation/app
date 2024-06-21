@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import SearchButton from './atom/SearchButton.tsx';
 import {fetchUserProfile} from '../../api';
+import {useFocusEffect} from '@react-navigation/native';
 
 interface User {
   nickname: string;
@@ -26,10 +27,12 @@ const HeaderMain: React.FC<Props> = ({toggleComponent}) => {
       console.error('Помилка отримання даних з сервера:', error);
     }
   };
-  useEffect(() => {
-    fetchData();
-  }, []);
 
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchData();
+    }, []),
+  );
   return (
     <View style={styles.headerHome}>
       <View style={styles.miniContainerfirst}>

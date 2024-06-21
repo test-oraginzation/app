@@ -1,44 +1,68 @@
-import React from 'react';
-import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, StyleSheet, TouchableOpacity, Image} from 'react-native';
 import {Icon} from '../../../../core/components/icons/iconsComponents.tsx';
+
 interface WishCardProps {
+  id: number;
   name: string;
   price: number;
   url: string;
-  photoUrl: string;
-  onIconPress?: () => void;
+  photoUrl?: string;
+  onDelete: (id: string) => void;
 }
 
 export const WishCard: React.FC<WishCardProps> = ({
+  id,
   name,
   price,
   url,
   photoUrl,
-  onIconPress,
+  onDelete,
 }) => {
+  const [isDropdownVisible, setDropdownVisible] = useState(false);
+  const actions = [{label: 'delete', value: 'delete'}];
+
+  const handleAction = (action: string) => {
+    if (action === 'delete') {
+      onDelete(id);
+      setDropdownVisible(false); // Закрити меню після видалення
+    }
+  };
+
   return (
     <View style={styles.card}>
-      {/*<Image source={photoUrl} style={styles.img} />*/}
+      <Image
+        source={require('../../../../../assets/images/Wish.png')}
+        style={styles.img}
+      />
       <View style={styles.textContainer}>
         <Text style={styles.mainText}>{name}</Text>
         <Text style={styles.secondaryText}>{price} USD</Text>
         <Text style={styles.linkText}>{url}</Text>
       </View>
-      <TouchableOpacity onPress={onIconPress} style={styles.iconContainer}>
-        <Icon name={'dots'} size={16} onPress={() => {}} />
-        <Icon
-          name={'copy-icon'}
-          size={20}
-          color={'#4E9FFF'}
-          onPress={() => {}}
-          style={{
-            position: 'absolute',
-            right: -2,
-            top: 70,
-            transform: [{scaleX: -1}],
-          }}
-        />
+      <TouchableOpacity
+        style={styles.iconContainer}
+        onPress={() => setDropdownVisible(!isDropdownVisible)}>
+        <Icon name={'dots'} size={16} />
       </TouchableOpacity>
+      {isDropdownVisible && (
+        <View style={styles.dropdownContainer}>
+          {actions.map((action, index) => (
+            <TouchableOpacity
+              key={index}
+              onPress={() => handleAction(action.value)}
+              style={styles.dropdownItem}>
+              <Text
+                style={[
+                  styles.dropdownItemText,
+                  action.value === 'delete' && styles.deleteText,
+                ]}>
+                {action.label}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      )}
     </View>
   );
 };
@@ -80,5 +104,30 @@ const styles = StyleSheet.create({
     top: 12,
     right: 12,
     flexDirection: 'row',
+  },
+  dropdownContainer: {
+    position: 'absolute',
+    right: 29,
+    top: -5,
+    borderRadius: 10,
+    elevation: 5,
+    padding: 10,
+  },
+  dropdownItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 4,
+    borderWidth: 1,
+    borderColor: 'grey',
+    borderRadius: 4,
+  },
+  icon: {
+    marginRight: 10,
+  },
+  dropdownItemText: {
+    fontSize: 16,
+  },
+  deleteText: {
+    color: '#FF0000',
   },
 });

@@ -32,12 +32,6 @@ const FriendsScreen = () => {
           <FriendsSubscriptions />
         )}
       </PrimeryWrapper>
-      <PrimaryButton
-        label={'log TOKEN'}
-        onPress={() => {
-          console.log(accessToken);
-        }}
-      />
     </View>
   );
 };

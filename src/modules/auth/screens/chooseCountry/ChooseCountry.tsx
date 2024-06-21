@@ -10,7 +10,6 @@ import {
 import {CountryPicker} from 'react-native-country-codes-picker';
 import {CountryItemAtom} from './atoms';
 import PrimaryButton from '../../../core/components/primaryButton/PrimaryButton.tsx';
-import {name} from 'axios';
 
 interface CountryModalProps {
   navigation: any;

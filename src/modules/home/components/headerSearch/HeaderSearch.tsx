@@ -3,6 +3,7 @@ import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import PrimaryInput from '../../../core/components/primaryInput/PrimaryInput.tsx';
 import {Icon} from '../../../core/components/icons/iconsComponents.tsx';
 import {fetchUserProfile} from '../../api';
+import {useFocusEffect} from "@react-navigation/native";
 interface SwitchButton {
   onValueChange: (value: 'Subscribers' | 'Subscriptions') => void;
   toggleComponent: () => void;
@@ -33,9 +34,11 @@ export const HeaderSearch: React.FC<SwitchButton> = ({
       console.error('Помилка отримання даних з сервера:', error);
     }
   };
-  useEffect(() => {
-    fetchData();
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      fetchData();
+    }, []),
+  );
   return (
     <View style={styles.headerFriends}>
       <View style={styles.container}>
