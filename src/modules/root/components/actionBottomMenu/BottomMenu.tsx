@@ -19,6 +19,10 @@ export const BottomMenu: React.FC<BottomMenuProps> = ({onClose}) => {
     navigation.navigate(RouteKey.AddWith);
     onClose();
   };
+  const navigateAddList = () => {
+    navigation.navigate(RouteKey.AddList);
+    onClose();
+  };
 
   return (
     <View style={styles.wrapper}>
@@ -43,7 +47,7 @@ export const BottomMenu: React.FC<BottomMenuProps> = ({onClose}) => {
             borderTopWidth: 1,
           },
         ]}
-        onPress={() => console.log('list')}>
+        onPress={() => navigateAddList()}>
         <Text style={styles.text}>Create a list</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.secondContainer} onPress={onClose}>

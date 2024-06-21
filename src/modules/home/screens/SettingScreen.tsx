@@ -12,7 +12,6 @@ import PrimaryButton from '../../core/components/primaryButton/PrimaryButton.tsx
 import {useSession} from '../../../hooks/useSession.ts';
 import PrimaryInput from '../../core/components/primaryInput/PrimaryInput.tsx';
 import {Formik, FormikProps} from 'formik';
-import {validationSchemaSettings} from '../validation/validation.ts';
 import {patchSettingData} from '../api';
 
 const SettingScreen = () => {
@@ -31,7 +30,6 @@ const SettingScreen = () => {
         nickname: value.nickname,
         email: value.email,
         phone: value.phoneNumber,
-        birthday: value.dateOfBirth,
       });
       console.log(data);
     } catch (err) {
@@ -59,11 +57,10 @@ const SettingScreen = () => {
                 firstName: '',
                 lastName: '',
                 nickname: '',
-                dateOfBirth: '',
                 email: '',
                 phoneNumber: '',
               }}
-              validationSchema={validationSchemaSettings}
+              // validationSchema={validationSchemaSettings}
               onSubmit={values => handlePress(values)}>
               {({
                 handleChange,
@@ -75,7 +72,6 @@ const SettingScreen = () => {
                 firstName: string;
                 lastName: string;
                 nickname: string;
-                dateOfBirth: string;
                 email: string;
                 phoneNumber: string;
               }>) => (
@@ -117,23 +113,6 @@ const SettingScreen = () => {
                     {touched.nickname && errors.nickname && (
                       <Text style={styles.textErr}>{errors.nickname}</Text>
                     )}
-                  </View>
-
-                  <View style={styles.stylesFormContainer}>
-                    <Text style={styles.lableText}>Date of birth</Text>
-                    <PrimaryInput
-                      style={styles.primeryInput}
-                      value={values.dateOfBirth}
-                      onChangeText={handleChange('dateOfBirth')}
-                      placeholder="Choose date"
-                    />
-                    {touched.dateOfBirth && errors.dateOfBirth && (
-                      <Text style={styles.textErr}>{errors.dateOfBirth}</Text>
-                    )}
-                    <Image
-                      style={styles.calendar}
-                      source={require('../../../assets/images/Calendar.png')}
-                    />
                   </View>
 
                   <View style={styles.stylesFormContainer}>

@@ -54,7 +54,6 @@ export interface patchSettingDataPR {
   nickname: string;
   email: string;
   phone: number;
-  birthday: string;
 }
 export interface UserListProps {
   count: number;

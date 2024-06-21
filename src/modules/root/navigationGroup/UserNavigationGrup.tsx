@@ -13,6 +13,8 @@ import {TabBarWidget} from '../widgets';
 import AddWith from '../../home/screens/AddWith.tsx';
 import GoBack from '../components/GoBack.tsx';
 import {SearchPeopleAcc} from '../../home/screens/SearchPeopleAcc.tsx';
+import AddList from '../../home/screens/AddList.tsx';
+import {ChooseWish} from '../../home/components/chooseWish/ChooseWish.tsx';
 
 const TabStack = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -56,11 +58,34 @@ export const UserNavigationGroup = () => {
         options={{
           headerShown: true,
           headerTransparent: true,
-          headerTitle: 'Add with',
+          headerTitle: '',
           headerLeft: () => <GoBack />,
         }}
       />
-      <Stack.Screen name={RouteKey.SearchPeopleAcc} component={SearchPeopleAcc} />
+      <Stack.Screen
+        name={RouteKey.SearchPeopleAcc}
+        component={SearchPeopleAcc}
+      />
+      <Stack.Screen
+        name={RouteKey.AddList}
+        component={AddList}
+        options={{
+          headerShown: true,
+          headerTransparent: true,
+          headerTitle: '',
+          headerLeft: () => <GoBack />,
+        }}
+      />
+      <Stack.Screen
+        name={RouteKey.ChooseWish}
+        component={ChooseWish}
+        options={{
+          headerShown: true,
+          headerTransparent: true,
+          headerTitle: '',
+          headerLeft: () => <GoBack />,
+        }}
+      />
     </Stack.Navigator>
   );
 };

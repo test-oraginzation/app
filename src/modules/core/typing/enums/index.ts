@@ -1,3 +1,5 @@
+import {ChooseWish} from "../../../home/components/chooseWish/ChooseWish.tsx";
+
 export enum RouteKey {
   Home = 'home',
   OnBoarding = 'onboarding',
@@ -14,6 +16,8 @@ export enum RouteKey {
   TabButton = 'TabButton',
   AddWith = 'AddWith',
   SearchPeopleAcc = 'SearchPeopleAcc',
+  AddList = 'AddList',
+  ChooseWish = 'ChooseWish',
 }
 export enum NavGroup {
   Auth = 'Auth',

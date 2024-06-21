@@ -48,6 +48,9 @@ export const fetchUserProfile = async (): Promise<UserProfile> => {
 export const addWishReq = (payload: IPayloadAddWish) => {
   return instance.post(`${BASE_URL}wishes`, payload);
 };
+export const addListReq = (payload: IPayloadAddWish) => {
+  return instance.post(`${BASE_URL}wishes`, payload);
+};
 
 export const wishesResponse = async (): Promise<WishData> => {
   const response = await instance.get(`${BASE_URL}wishes`);
